@@ -3,30 +3,35 @@ package elements;
 import map.MapDirection;
 import map.Vector2d;
 import map.IWorldMap;
+import elements.Genotype;
 
 import java.util.ArrayList;
 
 public class Animal implements IMapElement, IPositionChangeObserver {
 
-    private MapDirection orientation;
+    public Genotype genotype;
+    private MapDirection direction;
     private Vector2d position;
     private IWorldMap map;
 
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();
 
     public Animal(){
-        this.orientation = MapDirection.NORTH;
+        this.genotype = new Genotype();
+        this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2,2 );
     }
 
     public Animal(IWorldMap map){
-        this.orientation = MapDirection.NORTH;
+        this.genotype = new Genotype();
+        this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2, 2);
         this.map = map;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
-        this.orientation = MapDirection.NORTH;
+        this.genotype = new Genotype();
+        this.direction = this.genotype.getDirection();
         this.position = initialPosition;
         this.map = map;
     }
@@ -38,7 +43,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     @Override
     public String toString(){
-        switch(this.orientation){
+        switch(this.direction){
             case NORTH:
                 return "N";
             case SOUTH:
@@ -61,8 +66,8 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     public void move() {
-        this.positionChanged(this.position, this.position.add(this.orientation.toUnitVector()));
-        this.position = this.position.add(this.orientation.toUnitVector());
+        this.positionChanged(this.position, this.position.add(this.direction.toUnitVector()));
+        this.position = this.position.add(this.direction.toUnitVector());
     }
 
     public void addObserver(IPositionChangeObserver observer){
