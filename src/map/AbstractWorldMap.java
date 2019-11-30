@@ -1,8 +1,7 @@
 package map;
 
-import agh.cs.lab2.MoveDirection;
-import agh.cs.lab3.Animal;
-import agh.cs.lab7.IPositionChangeObserver;
+import elements.Animal;
+import elements.IPositionChangeObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +17,15 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
 
     @Override
-    public void run(MoveDirection[] directions) {
-        for (int i = 0; i < directions.length;) {
+    public void run() {
+        /*for (int i = 0; i < directions.length;) {
             for (Animal animal : animals) {
                 if (i < directions.length) {
                     animal.move(directions[i]);
                     i++;
                 }
             }
-        }
+        }*/
     }
 
     @Override

@@ -1,6 +1,6 @@
 package elements;
 
-import agh.cs.lab2.Vector2d;
+import map.Vector2d;
 
 public class Grass implements IMapElement {
 

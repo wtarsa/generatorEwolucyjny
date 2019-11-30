@@ -1,7 +1,7 @@
 package map;
 
-import agh.cs.lab3.Animal;
-import agh.cs.lab5.AbstractWorldMap;
+import elements.Animal;
+import map.AbstractWorldMap;
 
 public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 

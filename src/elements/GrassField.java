@@ -1,9 +1,9 @@
 package elements;
 
-import agh.cs.lab2.Vector2d;
-import agh.cs.lab4.IWorldMap;
-import agh.cs.lab4.MapVisualizer;
-import agh.cs.lab7.MapBoundary;
+import map.AbstractWorldMap;
+import map.Vector2d;
+import map.IWorldMap;
+import map.MapVisualizer;
 
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -12,7 +12,6 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     private int seed = 0;
     private int tuftOfGrassNumber = 0;
-    private MapBoundary border = new MapBoundary();
     public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
     public GrassField(int number){
         this.tuftOfGrassNumber = number;
@@ -44,7 +43,6 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         }
         while (tuftsMap.containsKey(tuft.getPosition()));
         this.tuftsMap.put(tuft.getPosition(), tuft);
-        this.border.add(tuft.getPosition());
     }
 
     @Override
@@ -54,9 +52,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
                 throw new IllegalArgumentException("This field is occupied!") ;
             this.vector2dToAnimal.put(animal.getPosition(), animal);
             animal.addObserver(this);
-            animal.addObserver(this.border);
             this.animals.add(animal);
-            this.border.add(animal.getPosition());
             return true;
         }
         catch (IllegalArgumentException a){
@@ -83,13 +79,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     }
 
-    private void updateCorners(){
-        this.lowerLeft = border.getLowerLeftCorner();
-        this.upperRight = border.getUpperRightCorner();
-    }
-
     public String toString(){
-        updateCorners();
         MapVisualizer mapInstance = new MapVisualizer(this);
         return mapInstance.draw(this.lowerLeft, this.upperRight);
 

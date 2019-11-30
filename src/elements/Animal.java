@@ -12,9 +12,6 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     private Vector2d position;
     private IWorldMap map;
 
-    private static final Vector2d v_0_0 = new Vector2d(0, 0);
-    private static final Vector2d v_4_4 = new Vector2d(4, 4);
-
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();
 
     public Animal(){
@@ -50,26 +47,22 @@ public class Animal implements IMapElement, IPositionChangeObserver {
                 return "E";
             case WEST:
                 return "W";
+            case NORTHWEST:
+                return "NW";
+            case NORTHEAST:
+                return "NE";
+            case SOUTHEAST:
+                return "SE";
+            case SOUTHWEST:
+                return "SW";
             default:
                 return "";
         }
     }
 
-    public void move(MoveDirection direction){
-        if(direction == MoveDirection.LEFT){
-            this.orientation = this.orientation.previous();
-        }
-        else if(direction == MoveDirection.RIGHT){
-            this.orientation = this.orientation.next();
-        }
-        else if(direction == MoveDirection.FORWARD && this.map.canMoveTo(this.position.add(this.orientation.toUnitVector()))){
-            this.positionChanged(this.position, this.position.add(this.orientation.toUnitVector()));
-            this.position = this.position.add(this.orientation.toUnitVector());
-        }
-        else if(direction == MoveDirection.BACKWARD && this.map.canMoveTo(this.position.add(this.orientation.toUnitVector().opposite()))){
-            this.positionChanged(this.position, this.position.add(this.orientation.toUnitVector().opposite()));
-            this.position = this.position.add(this.orientation.toUnitVector().opposite());
-        }
+    public void move() {
+        this.positionChanged(this.position, this.position.add(this.orientation.toUnitVector()));
+        this.position = this.position.add(this.orientation.toUnitVector());
     }
 
     public void addObserver(IPositionChangeObserver observer){
