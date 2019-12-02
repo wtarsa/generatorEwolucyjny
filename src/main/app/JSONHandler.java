@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class JSONHandler {
 
     public static void readJSON() throws IOException {
-        File file = new File("src/app/parameters.json");
+        File file = new File("src/main/app/parameters.json");
         String content = FileUtils.readFileToString(file, "utf-8");
         JSONObject parameters = new JSONObject(content);
         World.startSeed = parameters.getInt("seed");
