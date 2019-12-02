@@ -1,6 +1,7 @@
 package elements;
 
 import map.MapDirection;
+import app.World;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,22 +9,20 @@ import java.util.List;
 import java.util.Random;
 
 
+
 public class Genotype {
 
     private Integer[] geneticCode = new Integer[32];
+    Random rand = new Random(World.startSeed+Animal.numberOfAnimals);
 
     public Genotype(){
         for(int i = 0; i < 32; i++){
-            Random rand = new Random();
             this.geneticCode[i] = rand.nextInt(8);
         }
         geneticCodeCheck();
-
-
     }
 
     public Genotype(Genotype first, Genotype second){
-        Random rand = new Random();
         int checkPoint1 = 3+rand.nextInt(13);
         int checkPoint2 = 19+rand.nextInt(13);
         for(int i = 0; i < checkPoint1; i++){
@@ -62,7 +61,6 @@ public class Genotype {
     }
 
     public MapDirection getDirection(){
-        Random rand = new Random();
         int id = this.geneticCode[rand.nextInt(32)];
         switch (id) {
             case 0:

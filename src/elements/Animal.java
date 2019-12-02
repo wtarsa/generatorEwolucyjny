@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Animal implements IMapElement, IPositionChangeObserver {
 
+    public static int numberOfAnimals = 0;
     public Genotype genotype;
     private MapDirection direction;
     private Vector2d position;
@@ -20,6 +21,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2,2 );
+        numberOfAnimals++;
     }
 
     public Animal(IWorldMap map){
@@ -27,6 +29,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2, 2);
         this.map = map;
+        numberOfAnimals++;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
@@ -34,6 +37,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.direction = this.genotype.getDirection();
         this.position = initialPosition;
         this.map = map;
+        numberOfAnimals++;
     }
 
     @Override

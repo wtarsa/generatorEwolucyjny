@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="org.itest:itest-json-simple-parser:1.1.1" type="repository">
+    <properties maven-id="org.itest:itest-json-simple-parser:1.1.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/itest/itest-json-simple-parser/1.1.1/itest-json-simple-parser-1.1.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.3/commons-lang-2.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/itest/itest-iface/1.1.1/itest-iface-1.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
