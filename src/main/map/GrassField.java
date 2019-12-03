@@ -1,5 +1,8 @@
-package elements;
+package map;
 
+import app.World;
+import elements.Animal;
+import elements.Grass;
 import map.AbstractWorldMap;
 import map.Vector2d;
 import map.IWorldMap;
@@ -10,11 +13,13 @@ import java.util.Random;
 
 public class GrassField extends AbstractWorldMap implements IWorldMap {
 
-    private int seed = 0;
+    private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
     public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
     public GrassField(int number){
         this.tuftOfGrassNumber = number;
+        this.upperRight = new Vector2d(World.width-1, World.height-1);
+        this.lowerLeft = new Vector2d(0,0);
     }
 
     public void placeGrassTufts(){
@@ -82,7 +87,6 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     public String toString(){
         MapVisualizer mapInstance = new MapVisualizer(this);
         return mapInstance.draw(this.lowerLeft, this.upperRight);
-
     }
 
 }

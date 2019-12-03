@@ -1,5 +1,6 @@
 package elements;
 
+import app.World;
 import map.MapDirection;
 import map.Vector2d;
 import map.IWorldMap;
@@ -72,6 +73,18 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     public void move() {
         this.positionChanged(this.position, this.position.add(this.direction.toUnitVector()));
         this.position = this.position.add(this.direction.toUnitVector());
+        this.updateDirection();
+        this.updatePosition();
+    }
+
+    private void updateDirection(){
+        this.direction = this.genotype.getDirection();
+    }
+    private void updatePosition(){
+        Vector2d newPosition = (new Vector2d((this.position.x + World.width)%(World.width),
+                (this.position.y + World.height)%(World.height)));
+        this.positionChanged(this.position, newPosition);
+
     }
 
     public void addObserver(IPositionChangeObserver observer){

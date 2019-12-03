@@ -1,7 +1,7 @@
 import map.Vector2d;
 import elements.Animal;
 import map.IWorldMap;
-import elements.GrassField;
+import map.GrassField;
 import org.junit.Assert;
 import org.junit.Test;
 

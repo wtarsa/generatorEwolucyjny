@@ -18,14 +18,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     @Override
     public void run() {
-        /*for (int i = 0; i < directions.length;) {
-            for (Animal animal : animals) {
-                if (i < directions.length) {
-                    animal.move(directions[i]);
-                    i++;
-                }
-            }
-        }*/
+        for (Animal animal : animals) {
+            animal.move();
+        }
     }
 
     @Override

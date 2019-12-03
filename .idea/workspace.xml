@@ -2,18 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_itest_itest_json_simple_parser_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_json_json_20190722.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generatorEwolucyjny.iml" beforeDir="false" afterPath="$PROJECT_DIR$/generatorEwolucyjny.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONHandler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Genotype.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Genotype.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/elements/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/elements/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/elements/Genotype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/elements/Genotype.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/GrassField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/RectangularMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/RectangularMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/JSONHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/elements/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/elements/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/elements/GrassField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/RectangularMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/RectangularMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/GrassFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/GrassFieldTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="package.json" />
       </list>
     </option>
   </component>
@@ -42,15 +48,22 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Pobrane/commons-io-2.6.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="elements" />
       <recent name="map" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -65,7 +78,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.World">
     <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="app.World" />
       <module name="generatorEwolucyjny" />
@@ -79,9 +92,50 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in generatorEwolucyjny" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="generatorEwolucyjny" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapDirectionTest.nextTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="generatorEwolucyjny" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MapDirectionTest" />
+      <option name="METHOD_NAME" value="nextTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapDirectionTest.previousTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="generatorEwolucyjny" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MapDirectionTest" />
+      <option name="METHOD_NAME" value="previousTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector2dTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="generatorEwolucyjny" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Vector2dTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.World" />
+        <item itemvalue="JUnit.All in generatorEwolucyjny" />
+        <item itemvalue="JUnit.MapDirectionTest.previousTest" />
+        <item itemvalue="JUnit.MapDirectionTest.nextTest" />
+        <item itemvalue="JUnit.Vector2dTest" />
       </list>
     </recent_temporary>
   </component>
@@ -95,7 +149,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575065694101</updated>
-      <workItem from="1575065698431" duration="18982000" />
+      <workItem from="1575065698431" duration="21774000" />
+      <workItem from="1575327844835" duration="6286000" />
     </task>
     <servers />
   </component>
@@ -107,7 +162,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -117,9 +174,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/app/JSONHandler.java</url>
+          <url>file://$PROJECT_DIR$/src/main/app/JSONParser.java</url>
           <line>11</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/app/World.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
