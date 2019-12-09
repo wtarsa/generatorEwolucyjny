@@ -7,32 +7,38 @@ import map.IWorldMap;
 import elements.Genotype;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Animal implements IMapElement, IPositionChangeObserver {
 
     public static int numberOfAnimals = 0;
     public Genotype genotype;
     public int energy;
+    public String ID;
     private MapDirection direction;
     private Vector2d position;
     private IWorldMap map;
+
+    Random rand = new Random(World.startSeed+Animal.numberOfAnimals);
 
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();
 
     public Animal(){
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
-        this.position = new Vector2d(2,2 );
+        this.position = new Vector2d(2, 2);
         this.energy = World.startEnergy;
+        this.ID = this.genotype.getID();
         numberOfAnimals++;
     }
 
     public Animal(IWorldMap map){
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
-        this.position = new Vector2d(2, 2);
+        this.position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height) );
         this.map = map;
         this.energy = World.startEnergy;
+        this.ID = this.genotype.getID();
         numberOfAnimals++;
     }
 
@@ -42,6 +48,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.position = initialPosition;
         this.map = map;
         this.energy = World.startEnergy;
+        this.ID = this.genotype.getID();
         numberOfAnimals++;
     }
 
@@ -76,8 +83,10 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     public void move() {
         if(this.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
-            this.positionChanged(this.position, this.position.add(this.direction.toUnitVector()));
-            this.position = this.position.add(this.direction.toUnitVector());
+            Vector2d newPosition = this.position.add(this.direction.toUnitVector());
+            newPosition = newPosition.replaceOnMap();
+            this.positionChanged(this.ID, this.position, newPosition);
+            this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.updateDirection();
             this.updatePosition();
         }
@@ -86,10 +95,11 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     private void updateDirection(){
         this.direction = this.genotype.getDirection();
     }
+
     private void updatePosition(){
         Vector2d newPosition = (new Vector2d((this.position.x + World.width)%(World.width),
                 (this.position.y + World.height)%(World.height)));
-        this.positionChanged(this.position, newPosition);
+        this.positionChanged(this.ID, this.position, newPosition);
 
     }
 
@@ -101,9 +111,9 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.observerCollection.remove(observer);
     }
 
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(String id, Vector2d oldPosition, Vector2d newPosition){
         for (IPositionChangeObserver observer : observerCollection) {
-            observer.positionChanged(oldPosition, newPosition);
+            observer.positionChanged(id, oldPosition, newPosition);
         }
     }
 

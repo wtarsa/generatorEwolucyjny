@@ -1,5 +1,7 @@
 package map;
 
+import app.World;
+
 public class Vector2d {
 
     public final int x;
@@ -68,5 +70,9 @@ public class Vector2d {
     public Vector2d opposite(){
         Vector2d result = new Vector2d(this.x*(-1), this.y*(-1));
         return result;
+    }
+
+    public Vector2d replaceOnMap(){
+        return new Vector2d((this.x + World.width)%World.width, (this.y + World.height)%World.height);
     }
 }

@@ -19,7 +19,7 @@ public class JSONParser {
         World.plantEnergy = parameters.getInt("plantEnergy");
         World.moveEnergy = parameters.getInt("moveEnergy");
         World.jungleRatio = parameters.getFloat("jungleRatio");
-
+        World.startGrassTuftsRatio = parameters.getFloat("startGrassTuftsRatio");
 
 
     }

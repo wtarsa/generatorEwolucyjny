@@ -91,4 +91,12 @@ public class Genotype {
         }
         System.out.println();
     }
+
+    public String getID(){
+        String ID = "";
+        for(int i = 0; i < 32; i++){
+            ID += this.geneticCode[i];
+        }
+        return ID;
+    }
 }

@@ -1,9 +1,10 @@
 {
   "width": 5,
   "height": 5,
-  "seed": 12,
+  "seed": 11,
   "startEnergy": 30,
   "moveEnergy": 1,
   "plantEnergy": 5,
-  "jungleRatio": 0.1
+  "jungleRatio": 0.1,
+  "startGrassTuftsRatio": 0.2;
 }

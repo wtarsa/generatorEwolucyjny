@@ -68,7 +68,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
                 throw new IllegalArgumentException("This field is occupied!") ;
             this.vector2dToAnimal.put(animal.getPosition(), animal);
             animal.addObserver(this);
-            this.animals.add(animal);
+          //  this.animals.add(animal);
             return true;
         }
         catch (IllegalArgumentException a){
@@ -87,19 +87,19 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     @Override
     public boolean canMoveTo(Vector2d oldPosition, Vector2d newPosition){
         if(isOccupied(newPosition) && tuftsMap.containsKey(newPosition)){
-            grassGrubber(oldPosition, newPosition);
+      //      grassGrubber(oldPosition, newPosition);
             return true;
         }
         return (!isOccupied(newPosition));
     }
 
-    private void grassGrubber(Vector2d oldPosition, Vector2d newPosition){
+    /*private void grassGrubber(Vector2d oldPosition, Vector2d newPosition){
         tuftsMap.remove(newPosition);
         Random rand = new Random(this.seed);
-        Animal animal = this.vector2dToAnimal.get(oldPosition);
+        Animal animal = getAnimalWithID()
         animal.energy += World.plantEnergy;
         placeOneTuft(rand, newPosition);
-    }
+    }*/
 
     public String toString(){
         MapVisualizer mapInstance = new MapVisualizer(this);
