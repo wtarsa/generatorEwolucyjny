@@ -23,12 +23,6 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     public void placeGrassTufts(){
-        Random rand = new Random();
-        fillMapWithTufts(rand);
-    }
-
-    public void placeGrassTufts(int seed){
-        this.seed = seed;
         Random rand = new Random(seed);
         fillMapWithTufts(rand);
     }
@@ -44,10 +38,27 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         int n = this.tuftOfGrassNumber;
         Grass tuft;
         do{
-            tuft = new Grass(new Vector2d(rand.nextInt((int) Math.sqrt(n * 10)), rand.nextInt((int) Math.sqrt(n * 10))));
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
         }
-        while (tuftsMap.containsKey(tuft.getPosition()));
+        while (tuftsMap.containsKey(tuft.getPosition()) ||
+                vector2dToAnimal.containsKey(tuft.getPosition()));
         this.tuftsMap.put(tuft.getPosition(), tuft);
+    }
+
+    private void placeOneTuft(Random rand, Vector2d position){
+        int n = this.tuftOfGrassNumber;
+        Grass tuft;
+        do{
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        }
+        while (tuftsMap.containsKey(tuft.getPosition()) || position.equals(tuft.getPosition()) ||
+        vector2dToAnimal.containsKey(tuft.getPosition()));
+        this.tuftsMap.put(tuft.getPosition(), tuft);
+    }
+
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        return this.objectAt(position) != null;
     }
 
     @Override
@@ -74,14 +85,20 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     @Override
-    public boolean canMoveTo(Vector2d position){
-        if(isOccupied(position) && tuftsMap.containsKey(position)){
-            Random rand = new Random(this.seed);
-            placeOneTuft(rand);
+    public boolean canMoveTo(Vector2d oldPosition, Vector2d newPosition){
+        if(isOccupied(newPosition) && tuftsMap.containsKey(newPosition)){
+            grassGrubber(oldPosition, newPosition);
             return true;
         }
-        return (!isOccupied(position));
+        return (!isOccupied(newPosition));
+    }
 
+    private void grassGrubber(Vector2d oldPosition, Vector2d newPosition){
+        tuftsMap.remove(newPosition);
+        Random rand = new Random(this.seed);
+        Animal animal = this.vector2dToAnimal.get(oldPosition);
+        animal.energy += World.plantEnergy;
+        placeOneTuft(rand, newPosition);
     }
 
     public String toString(){

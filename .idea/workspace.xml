@@ -2,21 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generatorEwolucyjny.iml" beforeDir="false" afterPath="$PROJECT_DIR$/generatorEwolucyjny.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/GrassField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/RectangularMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/RectangularMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/JSONHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/elements/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/elements/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/elements/GrassField.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/GrassField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/GrassField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/IWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/IWorldMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/map/RectangularMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/RectangularMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/GrassFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/GrassFieldTest.java" afterDir="false" />
     </list>
@@ -150,7 +144,9 @@
       <option name="presentableId" value="Default" />
       <updated>1575065694101</updated>
       <workItem from="1575065698431" duration="21774000" />
-      <workItem from="1575327844835" duration="6286000" />
+      <workItem from="1575327844835" duration="8140000" />
+      <workItem from="1575380170147" duration="1569000" />
+      <workItem from="1575842262630" duration="7731000" />
     </task>
     <servers />
   </component>
@@ -180,8 +176,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/app/World.java</url>
-          <line>18</line>
+          <line>22</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/map/GrassField.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

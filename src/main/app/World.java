@@ -11,6 +11,10 @@ public class World {
     public static int startSeed;
     public static int width;
     public static int height;
+    public static int startEnergy;
+    public static int moveEnergy;
+    public static int plantEnergy;
+    public static float jungleRatio;
 
     public static void main(String[] args) {
         try {
@@ -22,6 +26,7 @@ public class World {
             animal2.genotype.showGenotype();
             map.place(animal1);
             map.place(animal2);
+            map.placeGrassTufts();
             System.out.println(map.toString());
             map.run();
             System.out.println(map.toString());

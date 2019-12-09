@@ -21,14 +21,22 @@ public class RectangularMap implements IWorldMap, IPositionChangeObserver {
         this.lowerLeft = new Vector2d(0, 0);
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d position){
-        return (!isOccupied(position) && position.follows(this.lowerLeft) && position.precedes(this.upperRight));
-    }
+
+
+
 
     @Override
     public Object objectAt(Vector2d position) {
         return vector2dToAnimal.get(position);
+    }
+
+    /*  @Override
+  public boolean canMoveTo(Vector2d position){
+      return (!isOccupied(position) && position.follows(this.lowerLeft) && position.precedes(this.upperRight));
+  }*/
+    @Override // syf ale chwilowe bo nwm czy ta klasa jest potrzebna
+    public boolean canMoveTo(Vector2d oldPosition, Vector2d newPosition) {
+        return false;
     }
 
     @Override

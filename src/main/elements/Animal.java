@@ -12,6 +12,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     public static int numberOfAnimals = 0;
     public Genotype genotype;
+    public int energy;
     private MapDirection direction;
     private Vector2d position;
     private IWorldMap map;
@@ -22,6 +23,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2,2 );
+        this.energy = World.startEnergy;
         numberOfAnimals++;
     }
 
@@ -30,6 +32,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.direction = this.genotype.getDirection();
         this.position = new Vector2d(2, 2);
         this.map = map;
+        this.energy = World.startEnergy;
         numberOfAnimals++;
     }
 
@@ -38,6 +41,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.direction = this.genotype.getDirection();
         this.position = initialPosition;
         this.map = map;
+        this.energy = World.startEnergy;
         numberOfAnimals++;
     }
 
@@ -71,10 +75,12 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     public void move() {
-        this.positionChanged(this.position, this.position.add(this.direction.toUnitVector()));
-        this.position = this.position.add(this.direction.toUnitVector());
-        this.updateDirection();
-        this.updatePosition();
+        if(this.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
+            this.positionChanged(this.position, this.position.add(this.direction.toUnitVector()));
+            this.position = this.position.add(this.direction.toUnitVector());
+            this.updateDirection();
+            this.updatePosition();
+        }
     }
 
     private void updateDirection(){
