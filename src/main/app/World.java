@@ -5,6 +5,7 @@ import map.GrassField;
 import map.Vector2d;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class World {
@@ -17,6 +18,7 @@ public class World {
     public static int plantEnergy;
     public static float jungleRatio;
     public static float startGrassTuftsRatio;
+    private static boolean DEBUG = false;
     public GrassField map;
 
     public World(int tuftsNumber){
@@ -28,23 +30,10 @@ public class World {
             JSONParser.readJSON();
             int tuftsNumber = (int)(World.width*World.height*World.startGrassTuftsRatio);
             World world = new World(tuftsNumber);
+            world.debug(true);
             world.createAnimals(2);
-            // GrassField map = new GrassField(tuftsNumber);
-          //  Animal animal1 = new Animal(map);
-           // Animal animal2 = new Animal(map, new Vector2d(1, 1));
-
-           // animal1.genotype.showGenotype();
-           // animal2.genotype.showGenotype();
-           // map.place(animal1);
-           // map.place(animal2);
             world.map.placeGrassTufts();
             world.runGameplay(3);
-            //System.out.println(map.toString());
-            //map.run();
-            //System.out.println(map.toString());
-           // map.run();
-           // System.out.println(map.toString());
-
 
         }catch (IOException ex){
             System.out.println("Problem while reading a JSON file...");
@@ -53,8 +42,13 @@ public class World {
 
     private void runGameplay(int days){
         for(int i = 0; i < days; i++){
+            this.deleteDeadAnimals();
             this.map.run();
             System.out.println(this.map.toString());
+            if(DEBUG) printEnergy();
+            this.subtractMoveEnergy();
+            this.addPlantEnergy();
+            if(DEBUG) printEnergy();
         }
     }
 
@@ -66,13 +60,40 @@ public class World {
     }
 
     private void deleteDeadAnimals(){
-        Collection<Animal> animals = this.map.vector2dToAnimal.values();
+        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
         for(Animal animal : animals){
-            if(animal.energy == 0){
+            if(animal.energy <= 0){
                 this.map.vector2dToAnimal.removeMapping(animal.getPosition(), animal);
             }
         }
     }
 
+    private void subtractMoveEnergy(){
+        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        for(Animal animal : animals){
+            animal.energy -= World.moveEnergy;
+        }
+    }
 
+    private void addPlantEnergy() {
+        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        for (Animal animal : animals) {
+            if(this.map.tuftsMap.containsKey(animal.getPosition())){
+                this.map.tuftsMap.remove(animal.getPosition());
+                animal.energy += World.plantEnergy;
+            }
+        }
+    }
+    // for debugging purposes
+    private void debug(boolean flag){
+        World.DEBUG = flag;
+    }
+
+    private void printEnergy() {
+        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        for (Animal animal : animals) {
+            System.out.print(animal.ID + " ");
+            System.out.println(animal.energy);
+        }
+    }
 }

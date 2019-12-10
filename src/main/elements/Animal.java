@@ -83,8 +83,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     public void move() {
         if(this.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
-            Vector2d newPosition = this.position.add(this.direction.toUnitVector());
-            newPosition = newPosition.replaceOnMap();
+            Vector2d newPosition = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.positionChanged(this.ID, this.position, newPosition);
             this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.updateDirection();

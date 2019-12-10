@@ -12,16 +12,13 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     protected Vector2d upperRight;
     protected Vector2d lowerLeft;
-   // protected HashMap<Vector2d, Animal> vector2dToAnimal = new LinkedHashMap<>();
     public MultiValuedMap<Vector2d, Animal> vector2dToAnimal = new ArrayListValuedHashMap<>();
- //   protected List<Animal> animals = new ArrayList<>();
 
 
     @Override
     public void run() {
-        Collection<Animal> animals = vector2dToAnimal.values();
-        ArrayList<Animal> animals1 = new ArrayList<>(animals);
-        for (Animal animal : animals1) {
+        ArrayList<Animal> animals = new ArrayList<>(vector2dToAnimal.values());
+        for (Animal animal : animals) {
             animal.move();
         }
     }
