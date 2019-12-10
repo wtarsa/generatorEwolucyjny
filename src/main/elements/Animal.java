@@ -1,6 +1,7 @@
 package elements;
 
 import app.World;
+import map.GrassField;
 import map.MapDirection;
 import map.Vector2d;
 import map.IWorldMap;
@@ -17,7 +18,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     public String ID;
     private MapDirection direction;
     private Vector2d position;
-    private IWorldMap map;
+    private GrassField map;
 
     Random rand = new Random(World.startSeed+Animal.numberOfAnimals);
 
@@ -32,17 +33,17 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         numberOfAnimals++;
     }
 
-    public Animal(IWorldMap map){
+    public Animal(GrassField map){
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
-        this.position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height) );
         this.map = map;
+        this.position = placeAnimal() ;
         this.energy = World.startEnergy;
         this.ID = this.genotype.getID();
         numberOfAnimals++;
     }
 
-    public Animal(IWorldMap map, Vector2d initialPosition){
+    public Animal(GrassField map, Vector2d initialPosition){
         this.genotype = new Genotype();
         this.direction = this.genotype.getDirection();
         this.position = initialPosition;
@@ -114,6 +115,14 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         for (IPositionChangeObserver observer : observerCollection) {
             observer.positionChanged(id, oldPosition, newPosition);
         }
+    }
+
+    private Vector2d placeAnimal(){
+        Vector2d position;
+        do{
+            position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height));
+        } while(this.map.vector2dToAnimal.containsKey(position));
+        return position;
     }
 
 }

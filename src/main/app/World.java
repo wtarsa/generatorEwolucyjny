@@ -33,7 +33,7 @@ public class World {
             world.debug(true);
             world.createAnimals(2);
             world.map.placeGrassTufts();
-            world.runGameplay(3);
+            world.runGameplay(60);
 
         }catch (IOException ex){
             System.out.println("Problem while reading a JSON file...");
@@ -49,6 +49,7 @@ public class World {
             this.subtractMoveEnergy();
             this.addPlantEnergy();
             if(DEBUG) printEnergy();
+           // this.map.addNewPlants();
         }
     }
 
@@ -96,4 +97,6 @@ public class World {
             System.out.println(animal.energy);
         }
     }
+
+
 }

@@ -4,14 +4,16 @@
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/generatorEwolucyjny/GrassFieldTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/generatorEwolucyjny/GrassFieldTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/elements/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/elements/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/map/GrassField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/GrassField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/GrassFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/GrassFieldTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -169,9 +171,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/map/AbstractWorldMap.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/main/map/GrassField.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

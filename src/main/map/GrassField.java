@@ -3,6 +3,7 @@ package map;
 import app.World;
 import elements.Animal;
 import elements.Grass;
+import map.Jungle;
 import map.AbstractWorldMap;
 import map.Vector2d;
 import map.IWorldMap;
@@ -15,11 +16,13 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
+    public Jungle jungle;
     public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
     public GrassField(int number){
         this.tuftOfGrassNumber = number;
         this.upperRight = new Vector2d(World.width-1, World.height-1);
         this.lowerLeft = new Vector2d(0,0);
+        this.jungle = new Jungle();
     }
 
     public void placeGrassTufts(){
@@ -39,6 +42,19 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         Grass tuft;
         do{
             tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        }
+        while (tuftsMap.containsKey(tuft.getPosition()) ||
+                vector2dToAnimal.containsKey(tuft.getPosition()));
+        this.tuftsMap.put(tuft.getPosition(), tuft);
+    }
+
+    public void addNewPlants(){
+        Random rand = new Random(seed);
+        this.placeOneTuft(rand);
+        Grass tuft;
+        do{
+            tuft = new Grass(new Vector2d(((World.width-jungle.width)/2)+rand.nextInt(jungle.width),
+                    ((World.height-jungle.height)/2)+rand.nextInt(jungle.height)));
         }
         while (tuftsMap.containsKey(tuft.getPosition()) ||
                 vector2dToAnimal.containsKey(tuft.getPosition()));
@@ -86,19 +102,10 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     @Override
     public boolean canMoveTo(Vector2d oldPosition, Vector2d newPosition){
         if(isOccupied(newPosition) && tuftsMap.containsKey(newPosition)){
-      //      grassGrubber(oldPosition, newPosition);
             return true;
         }
         return (!isOccupied(newPosition));
     }
-
-    /*private void grassGrubber(Vector2d oldPosition, Vector2d newPosition){
-        tuftsMap.remove(newPosition);
-        Random rand = new Random(this.seed);
-        Animal animal = getAnimalWithID()
-        animal.energy += World.plantEnergy;
-        placeOneTuft(rand, newPosition);
-    }*/
 
     public String toString(){
         MapVisualizer mapInstance = new MapVisualizer(this);

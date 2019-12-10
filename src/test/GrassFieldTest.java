@@ -8,7 +8,7 @@ import org.junit.Test;
 public class GrassFieldTest {
 
 
-    @Test
+/*    @Test
     public void objectAtTest(){
         IWorldMap field = new GrassField( 5);
         field.place(new Animal(field, new Vector2d(1,1)));
@@ -21,7 +21,7 @@ public class GrassFieldTest {
         field.place(new Animal(field, new Vector2d(1,1)));
         Assert.assertTrue(field.isOccupied(new Vector2d(1, 1)));
         Assert.assertFalse(field.isOccupied(new Vector2d(1, 2)));
-    }
+    }*/
 
     @Test
     public void tuftNumberTest(){
