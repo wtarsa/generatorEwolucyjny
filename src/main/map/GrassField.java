@@ -52,13 +52,18 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         Random rand = new Random(seed);
         this.placeOneTuft(rand);
         Grass tuft;
-        do{
+        // QUICK FIX, NEED TO ADD FUNCTION CHECKING WHETHER THERE'S A EMPTY PLACE ON MAP AND JUNGLE!
+    /*    do{
             tuft = new Grass(new Vector2d(((World.width-jungle.width)/2)+rand.nextInt(jungle.width),
                     ((World.height-jungle.height)/2)+rand.nextInt(jungle.height)));
         }
         while (tuftsMap.containsKey(tuft.getPosition()) ||
                 vector2dToAnimal.containsKey(tuft.getPosition()));
-        this.tuftsMap.put(tuft.getPosition(), tuft);
+        this.tuftsMap.put(tuft.getPosition(), tuft);*/
+        tuft = new Grass(new Vector2d(((World.width-jungle.width)/2)+rand.nextInt(jungle.width),
+                ((World.height-jungle.height)/2)+rand.nextInt(jungle.height)));
+        if(!tuftsMap.containsKey(tuft.getPosition())) this.tuftsMap.put(tuft.getPosition(), tuft);
+
     }
 
     private void placeOneTuft(Random rand, Vector2d position){
@@ -80,7 +85,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     @Override
     public boolean place(Animal animal) {
         try{
-            if(isOccupied(animal.getPosition()))
+            if(containsAnimal(animal.getPosition()))
                 throw new IllegalArgumentException("This field is occupied!") ;
             this.vector2dToAnimal.put(animal.getPosition(), animal);
             animal.addObserver(this);
@@ -88,6 +93,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         }
         catch (IllegalArgumentException a){
             System.out.println("Exception thrown  :" + a);
+
             return false;
         }
     }
@@ -110,6 +116,11 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     public String toString(){
         MapVisualizer mapInstance = new MapVisualizer(this);
         return mapInstance.draw(this.lowerLeft, this.upperRight);
+    }
+
+    private boolean containsAnimal(Vector2d position){
+        if(vector2dToAnimal.containsKey(position)) return true;
+        return false;
     }
 
 }

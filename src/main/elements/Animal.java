@@ -14,11 +14,11 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     public static int numberOfAnimals = 0;
     public Genotype genotype;
-    public int energy;
+    public float energy;
     public String ID;
-    private MapDirection direction;
-    private Vector2d position;
-    private GrassField map;
+    protected MapDirection direction;
+    protected Vector2d position;
+    protected GrassField map;
 
     Random rand = new Random(World.startSeed+Animal.numberOfAnimals);
 
@@ -88,7 +88,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
             this.positionChanged(this.ID, this.position, newPosition);
             this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.updateDirection();
-            this.updatePosition();
+          //  this.updatePosition();
         }
     }
 
@@ -123,6 +123,26 @@ public class Animal implements IMapElement, IPositionChangeObserver {
             position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height));
         } while(this.map.vector2dToAnimal.containsKey(position));
         return position;
+    }
+
+    public Animal(Animal parent1, Animal parent2, Vector2d position){
+        this.genotype = new Genotype(parent1.genotype, parent2.genotype);
+        this.direction = this.genotype.getDirection();
+        this.map = parent1.map;
+        this.position = position;
+        this.energy = (float) (0.25*parent1.energy + 0.25*parent2.energy);
+        this.ID = this.genotype.getID();
+        parent1.energy = (float) (0.75*parent1.energy);
+        parent2.energy = (float) (0.75*parent2.energy);
+        numberOfAnimals++;
+    }
+
+    public boolean enoughEnergyToReproduct(Animal animal){
+        return ((this.energy > (World.startEnergy/2))&&(animal.energy > (World.startEnergy/2)));
+    }
+
+    public Animal reproduct(Animal animal, Vector2d position){
+        return new Animal(this, animal, position);
     }
 
 }
