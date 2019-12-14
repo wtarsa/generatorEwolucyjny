@@ -120,8 +120,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     private boolean containsAnimal(Vector2d position){
-        if(vector2dToAnimal.containsKey(position)) return true;
-        return false;
+        return vector2dToAnimal.containsKey(position);
     }
 
 }

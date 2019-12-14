@@ -1,5 +1,6 @@
 package elements;
 
+import app.Game;
 import app.World;
 import map.*;
 import elements.Genotype;
@@ -9,46 +10,37 @@ import java.util.Random;
 
 public class Animal implements IMapElement, IPositionChangeObserver {
 
-    public static int numberOfAnimals = 0;
     public Genotype genotype;
     public float energy;
     public String ID;
     protected MapDirection direction;
     protected Vector2d position;
-    protected GrassField map;
-
-    Random rand = new Random(World.startSeed+Animal.numberOfAnimals);
+    public Game game;
 
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();
 
-    public Animal(){
-        this.genotype = new Genotype();
+    public Animal(Game game){
+        this.game = game;
+        this.genotype = new Genotype(game);
         this.direction = this.genotype.getDirection();
-        this.position = new Vector2d(2, 2);
-        this.energy = World.startEnergy;
-        this.ID = this.genotype.getID();
-        numberOfAnimals++;
-    }
-
-    public Animal(GrassField map){
-        this.genotype = new Genotype();
-        this.direction = this.genotype.getDirection();
-        this.map = map;
         this.position = placeAnimal() ;
         this.energy = World.startEnergy;
         this.ID = this.genotype.getID();
-        numberOfAnimals++;
+        this.game.numberOfAnimals++;
     }
 
-    public Animal(GrassField map, Vector2d initialPosition){
-        this.genotype = new Genotype();
+    public Animal(Animal parent1, Animal parent2, Vector2d position){
+        this.game = parent1.game;
+        this.genotype = new Genotype(parent1.genotype, parent2.genotype, game);
         this.direction = this.genotype.getDirection();
-        this.position = initialPosition;
-        this.map = map;
-        this.energy = World.startEnergy;
+        this.position = position;
+        this.energy = (float) (0.25*parent1.energy + 0.25*parent2.energy);
         this.ID = this.genotype.getID();
-        numberOfAnimals++;
+        parent1.energy = (float) (0.75*parent1.energy);
+        parent2.energy = (float) (0.75*parent2.energy);
+        this.game.numberOfAnimals++;
     }
+
 
     @Override
     public boolean belongsToJungle(Jungle jungle){
@@ -85,7 +77,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     public void move() {
-        if(this.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
+        if(this.game.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
             Vector2d newPosition = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.positionChanged(this, this.position, newPosition);
             this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
@@ -121,23 +113,14 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     private Vector2d placeAnimal(){
         Vector2d position;
+        Random rand = new Random(World.startSeed+this.game.numberOfAnimals);
         do{
             position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height));
-        } while(this.map.vector2dToAnimal.containsKey(position));
+        } while(this.game.map.vector2dToAnimal.containsKey(position));
         return position;
     }
 
-    public Animal(Animal parent1, Animal parent2, Vector2d position){
-        this.genotype = new Genotype(parent1.genotype, parent2.genotype);
-        this.direction = this.genotype.getDirection();
-        this.map = parent1.map;
-        this.position = position;
-        this.energy = (float) (0.25*parent1.energy + 0.25*parent2.energy);
-        this.ID = this.genotype.getID();
-        parent1.energy = (float) (0.75*parent1.energy);
-        parent2.energy = (float) (0.75*parent2.energy);
-        numberOfAnimals++;
-    }
+//reproducting
 
     public boolean enoughEnergyToReproduce(Animal animal){
         return ((this.energy > (World.startEnergy/2))&&(animal.energy > (World.startEnergy/2)));
