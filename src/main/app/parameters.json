@@ -8,5 +8,5 @@
   "jungleRatio": 0.1,
   "startGrassTuftsRatio": 0.2,
   "initialAnimalsNumber": 4,
-  "simulationLength": 300
+  "simulationLength": 3000
 }

@@ -118,10 +118,6 @@ public class Game {
             if (this.map.vector2dToAnimal.size() != 0) {
                 this.deleteDeadAnimals();
                 this.map.run();
-                if (DEBUG)
-                    if (i == 60) {
-                        System.out.println("stop");
-                    }
                 if (DEBUG) System.out.println("Day: " + i);
                 System.out.println(this.map.toString());
                 if (DEBUG) System.out.println("Before:");
