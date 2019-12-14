@@ -1,10 +1,7 @@
 package elements;
 
 import app.World;
-import map.GrassField;
-import map.MapDirection;
-import map.Vector2d;
-import map.IWorldMap;
+import map.*;
 import elements.Genotype;
 
 import java.util.ArrayList;
@@ -54,6 +51,11 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     @Override
+    public boolean belongsToJungle(Jungle jungle){
+        return this.position.follows(jungle.lowerLeftCorner) && this.position.precedes(jungle.upperRightCorner);
+    }
+
+    @Override
     public Vector2d getPosition(){
         return this.position;
     }
@@ -85,7 +87,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     public void move() {
         if(this.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
             Vector2d newPosition = this.position.add(this.direction.toUnitVector()).replaceOnMap();
-            this.positionChanged(this.ID, this.position, newPosition);
+            this.positionChanged(this, this.position, newPosition);
             this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
             this.updateDirection();
           //  this.updatePosition();
@@ -99,7 +101,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     private void updatePosition(){
         Vector2d newPosition = (new Vector2d((this.position.x + World.width)%(World.width),
                 (this.position.y + World.height)%(World.height)));
-        this.positionChanged(this.ID, this.position, newPosition);
+        this.positionChanged(this, this.position, newPosition);
 
     }
 
@@ -111,9 +113,9 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         this.observerCollection.remove(observer);
     }
 
-    public void positionChanged(String id, Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(Animal animal, Vector2d oldPosition, Vector2d newPosition){
         for (IPositionChangeObserver observer : observerCollection) {
-            observer.positionChanged(id, oldPosition, newPosition);
+            observer.positionChanged(animal, oldPosition, newPosition);
         }
     }
 
@@ -137,11 +139,11 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         numberOfAnimals++;
     }
 
-    public boolean enoughEnergyToReproduct(Animal animal){
+    public boolean enoughEnergyToReproduce(Animal animal){
         return ((this.energy > (World.startEnergy/2))&&(animal.energy > (World.startEnergy/2)));
     }
 
-    public Animal reproduct(Animal animal, Vector2d position){
+    public Animal reproduce(Animal animal, Vector2d position){
         return new Animal(this, animal, position);
     }
 

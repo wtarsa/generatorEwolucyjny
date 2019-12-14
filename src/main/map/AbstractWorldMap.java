@@ -24,22 +24,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     @Override
-    public void positionChanged(String id ,Vector2d oldPosition, Vector2d newPosition) {
+    public void positionChanged(Animal animal ,Vector2d oldPosition, Vector2d newPosition) {
         Collection<Animal> animals = vector2dToAnimal.get(oldPosition);
-        Animal animal = getAnimalWithID(id, oldPosition);
         vector2dToAnimal.removeMapping(oldPosition, animal);
         vector2dToAnimal.put(newPosition, animal);
     }
 
-    protected Animal getAnimalWithID(String ID, Vector2d position){
-        Collection<Animal> animals = vector2dToAnimal.get(position);
-        Animal animal = new Animal();
-        for(Animal animal1: animals){
-            if(animal1.ID.equals(ID)){
-                animal = animal1;
-                break;
-            }
-        }
-        return animal;
-    }
 }

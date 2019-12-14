@@ -1,5 +1,6 @@
 package elements;
 
+import map.Jungle;
 import map.Vector2d;
 
 public class Grass implements IMapElement {
@@ -8,6 +9,11 @@ public class Grass implements IMapElement {
 
     public Grass(Vector2d position){
         this.position = position;
+    }
+
+    @Override
+    public boolean belongsToJungle(Jungle jungle){
+        return this.position.follows(jungle.lowerLeftCorner) && this.position.precedes(jungle.upperRightCorner);
     }
 
     @Override

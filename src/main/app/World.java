@@ -46,6 +46,13 @@ public class World {
             if(this.map.vector2dToAnimal.size() != 0) {
                 this.deleteDeadAnimals();
                 this.map.run();
+                //debug
+                if(i == 60){
+                    System.out.println("stop");
+
+                }
+                //
+                System.out.println("Day: " + i);
                 System.out.println(this.map.toString());
                 System.out.println("Before:");
                 if (DEBUG) printEnergy();
@@ -55,6 +62,7 @@ public class World {
                 if (DEBUG) printEnergy();
                 this.map.addNewPlants();
                 this.addNewAnimals();
+
             }
         }
     }
@@ -69,7 +77,7 @@ public class World {
     private void deleteDeadAnimals(){
         ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
         for(Animal animal : animals){
-            if(animal.energy <= 0){
+            if(animal.energy <= 0.0){
                 this.map.vector2dToAnimal.removeMapping(animal.getPosition(), animal);
             }
         }
@@ -86,6 +94,8 @@ public class World {
         ArrayList<Vector2d> positions = new ArrayList<>(this.map.vector2dToAnimal.keySet());
         for(Vector2d position: positions){
             if(this.map.tuftsMap.containsKey(position)){
+                if(this.map.tuftsMap.get(position).belongsToJungle(this.map.jungle)) this.map.jungle.emptyPlaces++;
+                else this.map.emptyPlaces++;
                 this.map.tuftsMap.remove(position);
                 double maxEnergy = -2e9;
                 int animalsWithMaxEnergy = 0;
@@ -131,10 +141,10 @@ public class World {
                             && Double.compare(animal2.energy, animalsOnOnePosition.get(i).energy) <= 0)
                         animal2 = animalsOnOnePosition.get(i);
                 }
-                if(animal1.enoughEnergyToReproduct(animal2)){
+                if(animal1.enoughEnergyToReproduce(animal2)){
                     ArrayList<Vector2d> emptyPositions = this.emptyPosition(animal1.getPosition());
                     if(!emptyPositions.isEmpty()){
-                        Animal child = animal1.reproduct(animal2, emptyPositions.get(0));
+                        Animal child = animal1.reproduce(animal2, emptyPositions.get(0));
                         this.map.place(child);
                     }
                 }

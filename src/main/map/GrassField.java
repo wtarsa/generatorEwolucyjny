@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class GrassField extends AbstractWorldMap implements IWorldMap {
 
+    public int emptyPlaces;
     private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
     public Jungle jungle;
@@ -23,6 +24,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         this.upperRight = new Vector2d(World.width-1, World.height-1);
         this.lowerLeft = new Vector2d(0,0);
         this.jungle = new Jungle();
+        this.emptyPlaces = World.width*World.height - this.jungle.emptyPlaces;
     }
 
     public void placeGrassTufts(){
@@ -33,48 +35,46 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     private void fillMapWithTufts(Random rand){
         int n = this.tuftOfGrassNumber;
         for(int i = 0; i < n; i++) {
-            placeOneTuft(rand);
+            placeOneTuftRandomly(rand);
         }
     }
 
-    private void placeOneTuft(Random rand){
-        int n = this.tuftOfGrassNumber;
+    private void placeOneTuftRandomly(Random rand){
         Grass tuft;
         do{
             tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
         }
-        while (tuftsMap.containsKey(tuft.getPosition()) ||
-                vector2dToAnimal.containsKey(tuft.getPosition()));
+        while (tuftsMap.containsKey(tuft.getPosition()));
         this.tuftsMap.put(tuft.getPosition(), tuft);
+        if(tuft.belongsToJungle(this.jungle)) this.jungle.emptyPlaces--;
+        else this.emptyPlaces--;
     }
+
+    private void placeOneTuftOnMap(Random rand){
+        Grass tuft;
+        do{
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        }
+        while (tuftsMap.containsKey(tuft.getPosition()) || tuft.belongsToJungle(this.jungle));
+        this.tuftsMap.put(tuft.getPosition(), tuft);
+        this.emptyPlaces--;
+    }
+
+    private void placeOneTuftOnJungle(Random rand){
+        Grass tuft;
+        do{
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        }
+        while (tuftsMap.containsKey(tuft.getPosition()) || !tuft.belongsToJungle(this.jungle));
+        this.tuftsMap.put(tuft.getPosition(), tuft);
+        this.jungle.emptyPlaces--;
+    }
+
 
     public void addNewPlants(){
         Random rand = new Random(seed);
-        this.placeOneTuft(rand);
-        Grass tuft;
-        // QUICK FIX, NEED TO ADD FUNCTION CHECKING WHETHER THERE'S A EMPTY PLACE ON MAP AND JUNGLE!
-    /*    do{
-            tuft = new Grass(new Vector2d(((World.width-jungle.width)/2)+rand.nextInt(jungle.width),
-                    ((World.height-jungle.height)/2)+rand.nextInt(jungle.height)));
-        }
-        while (tuftsMap.containsKey(tuft.getPosition()) ||
-                vector2dToAnimal.containsKey(tuft.getPosition()));
-        this.tuftsMap.put(tuft.getPosition(), tuft);*/
-        tuft = new Grass(new Vector2d(((World.width-jungle.width)/2)+rand.nextInt(jungle.width),
-                ((World.height-jungle.height)/2)+rand.nextInt(jungle.height)));
-        if(!tuftsMap.containsKey(tuft.getPosition())) this.tuftsMap.put(tuft.getPosition(), tuft);
-
-    }
-
-    private void placeOneTuft(Random rand, Vector2d position){
-        int n = this.tuftOfGrassNumber;
-        Grass tuft;
-        do{
-            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
-        }
-        while (tuftsMap.containsKey(tuft.getPosition()) || position.equals(tuft.getPosition()) ||
-        vector2dToAnimal.containsKey(tuft.getPosition()));
-        this.tuftsMap.put(tuft.getPosition(), tuft);
+        if(this.emptyPlaces > 0) this.placeOneTuftOnMap(rand);
+        if(this.jungle.emptyPlaces > 0) this.placeOneTuftOnJungle(rand);
     }
 
     @Override
@@ -88,6 +88,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
             if(containsAnimal(animal.getPosition()))
                 throw new IllegalArgumentException("This field is occupied!") ;
             this.vector2dToAnimal.put(animal.getPosition(), animal);
+
             animal.addObserver(this);
             return true;
         }
