@@ -1,12 +1,10 @@
 package app;
 
-import elements.Animal;
-import map.GrassField;
-import map.MapDirection;
-import map.Vector2d;
+import GUI.Frame;
+import GUI.Panel;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class World {
@@ -34,6 +32,8 @@ public class World {
             JSONParser.readJSON();
             World world = new World();
             world.game.beginSimulation(initialAnimalsNumber, simulationLength);
+            //Frame frame = new Frame(world.game);
+
         }
         catch (IOException ex){
             System.out.println("Problem while reading a JSON file...");

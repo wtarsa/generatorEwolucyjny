@@ -1,5 +1,6 @@
 package app;
 
+import GUI.Frame;
 import elements.Animal;
 import map.GrassField;
 import map.MapDirection;
@@ -14,6 +15,8 @@ public class Game {
     public GrassField map;
     private boolean DEBUG = false;
 
+    private Frame frame;
+
     public Game(int seed) {
         this.numberOfAnimals = 0;
         this.seed = seed;
@@ -25,6 +28,7 @@ public class Game {
         this.debug(true);
         this.createAnimals(initialAnimalsNumber);
         this.map.placeGrassTufts();
+        this.frame = new Frame(this);
         this.runGameplay(simulationLength);
     }
 
@@ -119,7 +123,7 @@ public class Game {
                 this.deleteDeadAnimals();
                 this.map.run();
                 if (DEBUG) System.out.println("Day: " + i);
-                System.out.println(this.map.toString());
+                if (DEBUG) System.out.println(this.map.toString());
                 if (DEBUG) System.out.println("Before:");
                 if (DEBUG) printEnergy();
                 this.subtractMoveEnergy();
@@ -128,6 +132,7 @@ public class Game {
                 if (DEBUG) printEnergy();
                 this.map.addNewPlants();
                 this.addNewAnimals();
+                this.frame.panel.simulate();
             }
         }
     }

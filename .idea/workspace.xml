@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/GUI/Panel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Genotype.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Genotype.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/elements/Genotype.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/elements/Genotype.java" afterDir="false" />
     </list>
@@ -37,13 +39,16 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Pobrane/commons-collections4-4.4.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/GUI" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -52,6 +57,7 @@
       <recent name="map" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/GUI" />
       <recent name="$PROJECT_DIR$/src/test" />
     </key>
   </component>
@@ -144,6 +150,7 @@
       <workItem from="1575842262630" duration="7731000" />
       <workItem from="1576084838156" duration="117000" />
       <workItem from="1576331596379" duration="19686000" />
+      <workItem from="1576410047524" duration="14304000" />
     </task>
     <servers />
   </component>
@@ -164,15 +171,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/elements/Genotype.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="animals1" />

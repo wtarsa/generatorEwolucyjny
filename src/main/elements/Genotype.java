@@ -67,7 +67,6 @@ public class Genotype {
     }
 
     public MapDirection getDirection(){
-        //Random rand = new Random(World.startSeed+this.game.numberOfAnimals);
         int id = this.geneticCode[rand.nextInt(32)];
         switch (id) {
             case 0:
