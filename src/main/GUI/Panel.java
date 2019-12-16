@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Panel extends JPanel implements ActionListener {
+public class Panel extends JPanel {
 
     public ImageIcon titleImage;
     private Game game;
@@ -25,7 +25,6 @@ public class Panel extends JPanel implements ActionListener {
 
     public Panel(Game game) {
         this.game = game;
-        this.timer = new Timer(delay, this);
     }
 
 
@@ -111,9 +110,4 @@ public class Panel extends JPanel implements ActionListener {
         g.fillRect(10 + space + windowWidth + 1, 57, windowWidth, windowHeight);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        timer.start();
-        
-    }
 }

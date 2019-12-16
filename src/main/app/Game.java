@@ -132,7 +132,7 @@ public class Game {
                 if (DEBUG) printEnergy();
                 this.map.addNewPlants();
                 this.addNewAnimals();
-                this.frame.panel.simulate();
+               // this.frame.panel.simulate();
             }
         }
     }
