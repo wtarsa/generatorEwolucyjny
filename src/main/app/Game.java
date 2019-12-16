@@ -15,7 +15,7 @@ public class Game {
     public GrassField map;
     private boolean DEBUG = false;
 
-    private Frame frame;
+   // private Frame frame;
 
     public Game(int seed) {
         this.numberOfAnimals = 0;
@@ -28,8 +28,9 @@ public class Game {
         this.debug(true);
         this.createAnimals(initialAnimalsNumber);
         this.map.placeGrassTufts();
-        this.frame = new Frame(this);
-        this.runGameplay(simulationLength);
+      //  this.frame = new Frame(this);
+        //this.runGameplay(simulationLength);
+       // this.run();
     }
 
     private void createAnimals(int animalsNumber) {
@@ -132,10 +133,26 @@ public class Game {
                 if (DEBUG) printEnergy();
                 this.map.addNewPlants();
                 this.addNewAnimals();
-               // this.frame.panel.simulate();
             }
         }
     }
+
+    public void run() {
+        if (this.map.vector2dToAnimal.size() != 0) {
+            this.deleteDeadAnimals();
+            this.map.run();
+            if (DEBUG) System.out.println(this.map.toString());
+            if (DEBUG) System.out.println("Before:");
+            if (DEBUG) printEnergy();
+            this.subtractMoveEnergy();
+            this.addPlantEnergy();
+            if (DEBUG) System.out.println("After:");
+            if (DEBUG) printEnergy();
+            this.map.addNewPlants();
+            this.addNewAnimals();
+        }
+    }
+
 
     // for debugging purposes
     private void debug(boolean flag){

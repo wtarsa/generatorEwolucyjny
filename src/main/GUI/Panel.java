@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Panel extends JPanel {
+public class Panel extends JPanel implements ActionListener {
 
     public ImageIcon titleImage;
     private Game game;
@@ -20,15 +20,19 @@ public class Panel extends JPanel {
     private int windowWidth;
     private int windowHeight;
     private int space;
-    private int delay = 100;
+
+    private int delay;
     private Timer timer;
 
     public Panel(Game game) {
         this.game = game;
+        this.delay = World.delay;
+        this.timer = new Timer(delay, this);
     }
 
 
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         this.g = g;
         this.windowWidth = getGameplayWindowWidth();
         this.windowHeight = getGameplayWindowHeight();
@@ -62,12 +66,14 @@ public class Panel extends JPanel {
         // paintVerticalLines(10+space+windowWidth, 56,  g, windowWidth, windowHeight);
         // paintHorizontalLines(10+space+windowWidth, 56, g, windowWidth, windowHeight);
         simulate();
+        this.timer.start();
 
     }
 
-    public void simulate() {
+    private void simulate() {
         cleanBackground(g, windowWidth, windowHeight, space);
         drawGrass(g, 10, 56 + windowHeight - (windowHeight / World.height), windowWidth, windowHeight);
+        drawAnimals(g, 10, 56 + windowHeight - (windowHeight / World.height), windowWidth, windowHeight);
     }
 
     private void paintVerticalLines(int i1, int i2, Graphics g, int width, int height) {
@@ -104,10 +110,23 @@ public class Panel extends JPanel {
         }
     }
 
+    private void drawAnimals(Graphics g, int i, int i1, int width, int height) {
+        ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(this.game.map.vector2dToAnimal.keySet());
+        for (Vector2d position : animalsPositions) {
+            g.setColor(Color.BLUE);
+            g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
+        }
+    }
+
     private void cleanBackground(Graphics g, int windowWidth, int windowHeight, int space) {
         g.setColor(new Color(133, 87, 35));
         g.fillRect(11, 57, windowWidth - 1, windowHeight - 1);
         g.fillRect(10 + space + windowWidth + 1, 57, windowWidth, windowHeight);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        this.game.run();
+        repaint();
+    }
 }

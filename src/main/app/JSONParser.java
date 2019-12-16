@@ -22,6 +22,7 @@ public class JSONParser {
         World.startGrassTuftsRatio = parameters.getFloat("startGrassTuftsRatio");
         World.initialAnimalsNumber = parameters.getInt("initialAnimalsNumber");
         World.simulationLength = parameters.getInt("simulationLength");
+        World.delay = parameters.getInt("delay");
     }
 }
 
