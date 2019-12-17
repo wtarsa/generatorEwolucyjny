@@ -87,7 +87,10 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     private void updateDirection(){
-        this.direction = this.genotype.getDirection();
+        int newDirection = this.genotype.getDirectionInt();
+        for(int i = 0; i < newDirection; i++){
+            this.direction = this.direction.next();
+        }
     }
 
     private void updatePosition(){

@@ -19,7 +19,7 @@ public class Genotype {
 
     public Genotype(Game game){
         this.game = game;
-        rand = new Random(game.seed+game.numberOfAnimals);
+        rand = new Random(this.game.seed+game.numberOfAnimals);
         for(int i = 0; i < 32; i++){
             this.geneticCode[i] = rand.nextInt(8);
         }
@@ -28,7 +28,7 @@ public class Genotype {
 
     public Genotype(Genotype first, Genotype second, Game game){
         this.game = game;
-        rand = new Random(World.startSeed+game.numberOfAnimals);
+        rand = new Random(this.game.seed+game.numberOfAnimals);
         int checkPoint1 = 3+rand.nextInt(13);
         int checkPoint2 = 19+rand.nextInt(13);
         for(int i = 0; i < checkPoint1; i++){
@@ -64,6 +64,10 @@ public class Genotype {
                 this.geneticCode[counter.get(i).getFirst()] = i;
             }
         }
+    }
+
+    public int getDirectionInt(){
+        return this.geneticCode[rand.nextInt(32)];
     }
 
     public MapDirection getDirection(){
