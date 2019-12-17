@@ -24,7 +24,7 @@ public class Game {
 
     public void beginSimulation(int initialAnimalsNumber, int simulationLength){
         int tuftsNumber = (int)(World.width*World.height*World.startGrassTuftsRatio);
-        this.map = new GrassField(tuftsNumber);
+        this.map = new GrassField(tuftsNumber, this.seed);
         this.debug(false);
         this.createAnimals(initialAnimalsNumber);
         this.map.placeGrassTufts();
@@ -150,6 +150,8 @@ public class Game {
             if (DEBUG) printEnergy();
             this.map.addNewPlants();
             this.addNewAnimals();
+            System.out.println("map: " + this.map.emptyPlaces);
+            System.out.println("jungle: " + this.map.jungle.emptyPlaces);
         }
     }
 

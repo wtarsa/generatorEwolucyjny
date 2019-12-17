@@ -15,11 +15,12 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     public int emptyPlaces;
-    private int seed = World.startSeed;
+    private int seed;
     private int tuftOfGrassNumber = 0;
     public Jungle jungle;
     public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
-    public GrassField(int number){
+    public GrassField(int number, int seed){
+        this.seed = seed;
         this.tuftOfGrassNumber = number;
         this.upperRight = new Vector2d(World.width-1, World.height-1);
         this.lowerLeft = new Vector2d(0,0);

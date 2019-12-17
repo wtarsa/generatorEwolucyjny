@@ -23,11 +23,11 @@ public class GrassFieldTest {
         Assert.assertFalse(field.isOccupied(new Vector2d(1, 2)));
     }*/
 
-    @Test
+  /*  @Test
     public void tuftNumberTest(){
         GrassField field = new GrassField(13);
         field.placeGrassTufts();
         Assert.assertEquals(13, field.tuftsMap.size());
         Assert.assertNotEquals(12, field.tuftsMap.size());
-    }
+    }*/
 }

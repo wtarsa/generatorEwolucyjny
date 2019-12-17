@@ -23,7 +23,7 @@ public class Jungle {
         }
         lowerLeftCorner = new Vector2d((World.width-this.width)/2, (World.height-this.height)/2);
         upperRightCorner = lowerLeftCorner.add(new Vector2d(this.width, this.height));
-        this.emptyPlaces = this.width*this.height;
+        this.emptyPlaces = (this.width-1)*(this.height-1);
     }
 
 }

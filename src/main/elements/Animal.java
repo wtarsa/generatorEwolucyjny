@@ -116,7 +116,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
 
     private Vector2d placeAnimal(){
         Vector2d position;
-        Random rand = new Random(World.startSeed+this.game.numberOfAnimals);
+        Random rand = new Random(this.game.seed+this.game.numberOfAnimals);
         do{
             position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height));
         } while(this.game.map.vector2dToAnimal.containsKey(position));

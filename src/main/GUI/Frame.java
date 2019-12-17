@@ -5,10 +5,8 @@ import app.World;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Frame extends JFrame/* implements ActionListener*/ {
+public class Frame extends JFrame{
 
     private Game game;
     private Game secondGame;
@@ -26,21 +24,12 @@ public class Frame extends JFrame/* implements ActionListener*/ {
         this.setLocationRelativeTo(null);
         panel = new Panel(game, secondGame);
         this.add(panel);
-      //  this.delay = 1000;
-      //  this.timer = new Timer(delay, this);
     }
 
     public void start(){
         this.game.beginSimulation(World.initialAnimalsNumber, World.simulationLength);
         this.secondGame.beginSimulation(World.initialAnimalsNumber, World.simulationLength);
-      //  this.timer.start();
 
     }
 
-
-  /*  @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        this.game.run();
-        repaint();
-    }*/
 }
