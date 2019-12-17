@@ -19,7 +19,7 @@ public class Genotype {
 
     public Genotype(Game game){
         this.game = game;
-        rand = new Random(World.startSeed+game.numberOfAnimals);
+        rand = new Random(game.seed+game.numberOfAnimals);
         for(int i = 0; i < 32; i++){
             this.geneticCode[i] = rand.nextInt(8);
         }

@@ -23,11 +23,13 @@ public class World {
 
 
     private Game game;
+    private Game secondGame;
     private Frame frame;
 
     public World(){
         this.game = new Game(startSeed);
-        this.frame = new Frame(game);
+        this.secondGame = new Game(startSeed+initialAnimalsNumber+10);
+        this.frame = new Frame(game, secondGame);
     }
 
     public static void main(String[] args) {

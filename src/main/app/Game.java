@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private int seed;
+    public int seed;
     public int numberOfAnimals;
     public GrassField map;
     private boolean DEBUG = false;

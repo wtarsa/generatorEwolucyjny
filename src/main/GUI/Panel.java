@@ -16,6 +16,7 @@ public class Panel extends JPanel implements ActionListener {
 
     public ImageIcon titleImage;
     private Game game;
+    private Game secondGame;
     private Graphics g;
     private int windowWidth;
     private int windowHeight;
@@ -24,8 +25,9 @@ public class Panel extends JPanel implements ActionListener {
     private int delay;
     private Timer timer;
 
-    public Panel(Game game) {
+    public Panel(Game game, Game secondGame) {
         this.game = game;
+        this.secondGame = secondGame;
         this.delay = World.delay;
         this.timer = new Timer(delay, this);
     }
@@ -61,19 +63,18 @@ public class Panel extends JPanel implements ActionListener {
         g.setColor(new Color(133, 87, 35));
         g.fillRect(10 + space + windowWidth + 1, 57, windowWidth, windowHeight);
 
-        //   paintVerticalLines(10, 56,  g, windowWidth, windowHeight);
-        // paintHorizontalLines(10, 56, g, windowWidth, windowHeight);
-        // paintVerticalLines(10+space+windowWidth, 56,  g, windowWidth, windowHeight);
-        // paintHorizontalLines(10+space+windowWidth, 56, g, windowWidth, windowHeight);
-        simulate();
-        this.timer.start();
+        cleanBackground(g, windowWidth, windowHeight, space);
+        simulate(this.game, 10, 56 + windowHeight - (windowHeight / World.height));
+        simulate(this.secondGame, 10+windowWidth+space, 56 + windowHeight - (windowHeight / World.height));
 
+        this.timer.start();
+      //  paintVerticalLines(10+windowWidth+space,56, g, windowWidth, windowHeight);
+        //paintHorizontalLines(10+windowWidth+space,56, g, windowWidth, windowHeight);
     }
 
-    private void simulate() {
-        cleanBackground(g, windowWidth, windowHeight, space);
-        drawGrass(g, 10, 56 + windowHeight - (windowHeight / World.height), windowWidth, windowHeight);
-        drawAnimals(g, 10, 56 + windowHeight - (windowHeight / World.height), windowWidth, windowHeight);
+    private void simulate(Game game, int i1, int i2) {
+        drawGrass(g, i1, i2, windowWidth, windowHeight, game);
+        drawAnimals(g, i1, i2, windowWidth, windowHeight, game);
     }
 
     private void paintVerticalLines(int i1, int i2, Graphics g, int width, int height) {
@@ -102,16 +103,16 @@ public class Panel extends JPanel implements ActionListener {
         return size;
     }
 
-    private void drawGrass(Graphics g, int i, int i1, int width, int height) {
-        ArrayList<Vector2d> grassPositions = new ArrayList<Vector2d>(this.game.map.tuftsMap.keySet());
+    private void drawGrass(Graphics g, int i, int i1, int width, int height, Game game) {
+        ArrayList<Vector2d> grassPositions = new ArrayList<Vector2d>(game.map.tuftsMap.keySet());
         for (Vector2d position : grassPositions) {
             g.setColor(Color.GREEN);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
         }
     }
 
-    private void drawAnimals(Graphics g, int i, int i1, int width, int height) {
-        ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(this.game.map.vector2dToAnimal.keySet());
+    private void drawAnimals(Graphics g, int i, int i1, int width, int height, Game game) {
+        ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(game.map.vector2dToAnimal.keySet());
         for (Vector2d position : animalsPositions) {
             g.setColor(Color.BLUE);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
@@ -127,6 +128,7 @@ public class Panel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.game.run();
+        this.secondGame.run();
         repaint();
     }
 }
