@@ -14,7 +14,7 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     public float energy;
     public String ID;
     protected MapDirection direction;
-    protected Vector2d position;
+    public Vector2d position;
     public Game game;
 
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();

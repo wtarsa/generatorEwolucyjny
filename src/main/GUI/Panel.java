@@ -2,6 +2,7 @@ package GUI;
 
 import app.Game;
 import app.World;
+import elements.Animal;
 import elements.Grass;
 import map.Vector2d;
 
@@ -15,6 +16,7 @@ import java.util.Collection;
 public class Panel extends JPanel implements ActionListener {
 
     public ImageIcon titleImage;
+    public static final Color grassColor = new Color(19, 109, 21);
     private Game game;
     private Game secondGame;
     private Graphics g;
@@ -106,16 +108,17 @@ public class Panel extends JPanel implements ActionListener {
     private void drawGrass(Graphics g, int i, int i1, int width, int height, Game game) {
         ArrayList<Vector2d> grassPositions = new ArrayList<Vector2d>(game.map.tuftsMap.keySet());
         for (Vector2d position : grassPositions) {
-            g.setColor(Color.GREEN);
+            g.setColor(grassColor);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
         }
     }
 
     private void drawAnimals(Graphics g, int i, int i1, int width, int height, Game game) {
-        ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(game.map.vector2dToAnimal.keySet());
-        for (Vector2d position : animalsPositions) {
-            g.setColor(Color.BLUE);
-            g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
+        //ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(game.map.vector2dToAnimal.keySet());
+        ArrayList<Animal> animals = new ArrayList<Animal>(this.game.map.vector2dToAnimal.values());
+        for (Animal animal: animals) {
+            g.setColor(getAnimalColor(animal.energy));
+            g.fillRect(i + animal.position.x * (width / World.width) + 1, i1 - animal.position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
         }
     }
 
@@ -123,6 +126,20 @@ public class Panel extends JPanel implements ActionListener {
         g.setColor(new Color(133, 87, 35));
         g.fillRect(11, 57, windowWidth - 1, windowHeight - 1);
         g.fillRect(10 + space + windowWidth + 1, 57, windowWidth, windowHeight);
+    }
+
+    private Color getAnimalColor(double energy){
+        if(Double.compare(energy, 5*World.startEnergy) > 0) return new Color(28, 0, 85);
+        else if(Double.compare(energy, 4*World.startEnergy) > 0) return new Color(12, 0, 104);
+        else if(Double.compare(energy, 3*World.startEnergy) > 0) return new Color(0, 3, 123);
+        else if(Double.compare(energy, 2*World.startEnergy) > 0) return new Color(0, 36, 141);
+        else if(Double.compare(energy, World.startEnergy) >= 0) return new Color(0, 76, 158);
+        else if(Double.compare(7*energy, 6*World.startEnergy) > 0) return new Color(34, 126, 173);
+        else if(Double.compare(7*energy, 5*World.startEnergy) > 0) return new Color(68, 170, 188);
+        else if(Double.compare(7*energy, 4*World.startEnergy) > 0) return new Color(102, 202, 197);
+        else if(Double.compare(7*energy, 3*World.startEnergy) > 0) return new Color(136, 215, 196);
+        else if(Double.compare(7*energy, 2*World.startEnergy) > 0) return new Color(170, 227, 202);
+        else return new Color(204, 239, 216);
     }
 
     @Override

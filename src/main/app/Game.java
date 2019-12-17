@@ -25,7 +25,7 @@ public class Game {
     public void beginSimulation(int initialAnimalsNumber, int simulationLength){
         int tuftsNumber = (int)(World.width*World.height*World.startGrassTuftsRatio);
         this.map = new GrassField(tuftsNumber);
-        this.debug(true);
+        this.debug(false);
         this.createAnimals(initialAnimalsNumber);
         this.map.placeGrassTufts();
       //  this.frame = new Frame(this);
