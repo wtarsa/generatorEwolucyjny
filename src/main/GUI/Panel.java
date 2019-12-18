@@ -7,11 +7,13 @@ import elements.Grass;
 import map.Vector2d;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Panel extends JPanel implements ActionListener {
 
@@ -106,7 +108,14 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void drawGrass(Graphics g, int i, int i1, int width, int height, Game game) {
-        ArrayList<Vector2d> grassPositions = new ArrayList<Vector2d>(game.map.tuftsMap.keySet());
+        List<Vector2d> grassPositions = new CopyOnWriteArrayList<Vector2d>(game.map.tuftsMap.keySet());
+     /*   Set<Map.Entry<Vector2d, Grass>> grasses = new HashSet<>(game.map.tuftsMap.entrySet());
+
+        for(Map.Entry<Vector2d, Grass> grass: grasses){
+            g.setColor(grassColor);
+            g.fillRect(i + grass.getKey().x * (width / World.width) + 1, i1 - grass.getKey().y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
+        }
+*/
         for (Vector2d position : grassPositions) {
             g.setColor(grassColor);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
@@ -115,11 +124,16 @@ public class Panel extends JPanel implements ActionListener {
 
     private void drawAnimals(Graphics g, int i, int i1, int width, int height, Game game) {
         //ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(game.map.vector2dToAnimal.keySet());
-        ArrayList<Animal> animals = new ArrayList<Animal>(this.game.map.vector2dToAnimal.values());
+        List<Animal> animals = new CopyOnWriteArrayList<Animal>(game.map.vector2dToAnimal.values());
         for (Animal animal: animals) {
             g.setColor(getAnimalColor(animal.energy));
             g.fillRect(i + animal.position.x * (width / World.width) + 1, i1 - animal.position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
         }
+      /* Set<Map.Entry<Vector2d, Animal>> animals = new HashSet<>(game.map.vector2dToAnimal.entries());
+       for (Map.Entry<Vector2d, Animal> animal: animals) {
+            g.setColor(getAnimalColor(animal.getValue().energy));
+            g.fillRect(i + animal.getKey().x * (width / World.width) + 1, i1 - animal.getKey().y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
+       }*/
     }
 
     private void cleanBackground(Graphics g, int windowWidth, int windowHeight, int space) {

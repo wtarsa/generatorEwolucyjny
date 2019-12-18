@@ -7,6 +7,8 @@ import map.MapDirection;
 import map.Vector2d;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game {
 
@@ -24,7 +26,7 @@ public class Game {
 
     public void beginSimulation(int initialAnimalsNumber, int simulationLength){
         int tuftsNumber = (int)(World.width*World.height*World.startGrassTuftsRatio);
-        this.map = new GrassField(tuftsNumber, this.seed);
+        this.map = new GrassField(tuftsNumber);
         this.debug(false);
         this.createAnimals(initialAnimalsNumber);
         this.map.placeGrassTufts();
@@ -41,7 +43,8 @@ public class Game {
     }
 
     private void deleteDeadAnimals() {
-        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        //ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.values());
         for (Animal animal : animals) {
             if (animal.energy <= 0.0) {
                 this.map.vector2dToAnimal.removeMapping(animal.getPosition(), animal);
@@ -50,14 +53,16 @@ public class Game {
     }
 
     private void subtractMoveEnergy() {
-        ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
+        List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.values());
+        //ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
         for (Animal animal : animals) {
             animal.energy -= World.moveEnergy;
         }
     }
 
     private void addPlantEnergy() {
-        ArrayList<Vector2d> positions = new ArrayList<>(this.map.vector2dToAnimal.keySet());
+        //ArrayList<Vector2d> positions = new ArrayList<>(this.map.vector2dToAnimal.keySet());
+        List<Vector2d> positions = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.keySet());
         for (Vector2d position : positions) {
             if (this.map.tuftsMap.containsKey(position)) {
                 if (this.map.tuftsMap.get(position).belongsToJungle(this.map.jungle)) this.map.jungle.emptyPlaces++;
@@ -65,7 +70,8 @@ public class Game {
                 this.map.tuftsMap.remove(position);
                 double maxEnergy = -2e9;
                 int animalsWithMaxEnergy = 0;
-                ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.get(position));
+                //ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.get(position));
+                List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.get(position));
                 for (Animal animal : animals) {
                     if (Double.compare(maxEnergy, animal.energy) < 0) {
                         maxEnergy = animal.energy;

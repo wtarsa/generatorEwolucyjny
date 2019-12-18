@@ -7,6 +7,7 @@ import java.util.*;
 
 import org.apache.commons.collections4.*;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+import org.apache.commons.collections4.multimap.TransformedMultiValuedMap;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 

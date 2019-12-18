@@ -19,11 +19,14 @@ public class Frame extends JFrame{
         this.secondGame = secondGame;
         this.setBounds(10, 10, 1280, 1000);
         this.setBackground(Color.WHITE);
-        this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         panel = new Panel(game, secondGame);
         this.add(panel);
+
+        //setVisible must be on the end!
+        this.setVisible(true);
+
     }
 
     public void start(){
