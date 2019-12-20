@@ -3,7 +3,6 @@ package elements;
 import app.Game;
 import app.World;
 import map.*;
-import elements.Genotype;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -77,13 +76,10 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     public void move() {
-      //  if(this.game.map.canMoveTo(this.position, this.position.add(this.direction.toUnitVector()))) {
-            Vector2d newPosition = this.position.add(this.direction.toUnitVector()).replaceOnMap();
-            this.positionChanged(this, this.position, newPosition);
-            this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
-            this.updateDirection();
-          //  this.updatePosition();
-        //}
+        Vector2d newPosition = this.position.add(this.direction.toUnitVector()).replaceOnMap();
+        this.positionChanged(this, this.position, newPosition);
+        this.position = this.position.add(this.direction.toUnitVector()).replaceOnMap();
+        this.updateDirection();
     }
 
     private void updateDirection(){
@@ -93,20 +89,10 @@ public class Animal implements IMapElement, IPositionChangeObserver {
         }
     }
 
-    private void updatePosition(){
-        Vector2d newPosition = (new Vector2d((this.position.x + World.width)%(World.width),
-                (this.position.y + World.height)%(World.height)));
-        this.positionChanged(this, this.position, newPosition);
-
-    }
-
     public void addObserver(IPositionChangeObserver observer){
         this.observerCollection.add(observer);
     }
 
-    public void removeObserver(IPositionChangeObserver observer){
-        this.observerCollection.remove(observer);
-    }
 
     public void positionChanged(Animal animal, Vector2d oldPosition, Vector2d newPosition){
         for (IPositionChangeObserver observer : observerCollection) {
@@ -115,12 +101,14 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     private Vector2d placeAnimal(){
-        Vector2d position;
-        Random rand = new Random(this.game.seed+this.game.numberOfAnimals);
-        do{
-            position = new Vector2d(rand.nextInt(World.width),rand.nextInt(World.height));
-        } while(this.game.map.vector2dToAnimal.containsKey(position));
-        return position;
+        synchronized (this.game.map.vector2dToAnimal) {
+            Vector2d position;
+            Random rand = new Random(this.game.seed + this.game.numberOfAnimals);
+            do {
+                position = new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height));
+            } while (this.game.map.vector2dToAnimal.containsKey(position));
+            return position;
+        }
     }
 
 //reproducting

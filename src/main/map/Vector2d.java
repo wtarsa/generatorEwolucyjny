@@ -16,36 +16,32 @@ public class Vector2d {
         return "(" + this.x + "," + this.y + ")";
     }
 
-    public boolean precedes(Vector2d tmp){
-        return (this.x < tmp.x && this.y < tmp.y);
+    public boolean precedes(Vector2d that){
+        return (this.x < that.x && this.y < that.y);
     }
 
-    public boolean follows(Vector2d tmp){
-        return (this.x > tmp.x && this.y > tmp.y);
+    public boolean follows(Vector2d that){
+        return (this.x > that.x && this.y > that.y);
     }
 
-    public Vector2d upperRight(Vector2d tmp){
-        Vector2d result = new Vector2d(Math.max(tmp.x, this.x), Math.max(tmp.y, this.y));
+    public Vector2d upperRight(Vector2d that){
+        Vector2d result = new Vector2d(Math.max(that.x, this.x), Math.max(that.y, this.y));
         return result;
     }
 
-    public Vector2d lowerLeft(Vector2d tmp){
-        Vector2d result = new Vector2d(Math.min(tmp.x, this.x), Math.min(tmp.y, this.y));
+    public Vector2d lowerLeft(Vector2d that){
+        Vector2d result = new Vector2d(Math.min(that.x, this.x), Math.min(that.y, this.y));
         return result;
     }
 
-    public Vector2d add(Vector2d tmp){
-        Vector2d result = new Vector2d(this.x + tmp.x, this.y + tmp.y);
+    public Vector2d add(Vector2d that){
+        Vector2d result = new Vector2d(this.x + that.x, this.y + that.y);
         return result;
     }
 
-    public Vector2d subtract(Vector2d tmp){
-        Vector2d result = new Vector2d(this.x - tmp.x, this.y - tmp.y);
+    public Vector2d subtract(Vector2d that){
+        Vector2d result = new Vector2d(this.x - that.x, this.y - that.y);
         return result;
-    }
-
-    public Vector2d changeValue(Vector2d tmp){
-        return tmp;
     }
 
     public boolean equals(Object other){
@@ -56,7 +52,6 @@ public class Vector2d {
         Vector2d that = (Vector2d) other;
         return this.x == that.x && this.y == that.y;
     }
-
 
     @Override
     public int hashCode() {

@@ -7,7 +7,6 @@
   "plantEnergy": 15.0,
   "jungleRatio": 0.2,
   "startGrassTuftsRatio": 0.4,
-  "initialAnimalsNumber": 1000,
-  "simulationLength": 3,
+  "initialAnimalsNumber": 2500,
   "delay": 1
 }

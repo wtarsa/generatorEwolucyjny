@@ -11,8 +11,6 @@ public class Frame extends JFrame{
     private Game game;
     private Game secondGame;
     public Panel panel;
-    private Timer timer;
-    private int delay;
 
     public Frame(Game game, Game secondGame){
         this.game = game;
@@ -21,7 +19,7 @@ public class Frame extends JFrame{
         this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        panel = new Panel(game, secondGame);
+        this.panel = new Panel(game, secondGame);
         this.add(panel);
 
         //setVisible must be on the end!
@@ -30,8 +28,8 @@ public class Frame extends JFrame{
     }
 
     public void start(){
-        this.game.beginSimulation(World.initialAnimalsNumber, World.simulationLength);
-        this.secondGame.beginSimulation(World.initialAnimalsNumber, World.simulationLength);
+        this.game.beginSimulation(World.initialAnimalsNumber);
+        this.secondGame.beginSimulation(World.initialAnimalsNumber);
 
     }
 

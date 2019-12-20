@@ -5,8 +5,8 @@ import app.World;
 public class Jungle {
 
     public int emptyPlaces;
-    public int width;
-    public int height;
+    private int width;
+    private int height;
     public int size;
     public Vector2d lowerLeftCorner;
     public Vector2d upperRightCorner;

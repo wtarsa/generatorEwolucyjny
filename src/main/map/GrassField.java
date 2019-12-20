@@ -3,16 +3,21 @@ package map;
 import app.World;
 import elements.Animal;
 import elements.Grass;
-import map.Jungle;
-import map.AbstractWorldMap;
-import map.Vector2d;
-import map.IWorldMap;
-import map.MapVisualizer;
+import elements.IPositionChangeObserver;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class GrassField extends AbstractWorldMap implements IWorldMap {
+public class GrassField implements IPositionChangeObserver {
+
+
+    protected Vector2d upperRight;
+    protected Vector2d lowerLeft;
+    public MultiValuedMap<Vector2d, Animal> vector2dToAnimal = new ArrayListValuedHashMap<>();
 
     public int emptyPlaces;
     private int seed = World.startSeed;
@@ -20,7 +25,6 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     public Jungle jungle;
     public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
     public GrassField(int number){
-        this.seed = seed;
         this.tuftOfGrassNumber = number;
         this.upperRight = new Vector2d(World.width-1, World.height-1);
         this.lowerLeft = new Vector2d(0,0);
@@ -29,8 +33,10 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     public void placeGrassTufts(){
-        Random rand = new Random(seed);
-        fillMapWithTufts(rand);
+        synchronized (this.tuftsMap) {
+            Random rand = new Random(seed);
+            fillMapWithTufts(rand);
+        }
     }
 
     private void fillMapWithTufts(Random rand){
@@ -41,78 +47,91 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     private void placeOneTuftRandomly(Random rand){
-        Grass tuft;
-        do{
-            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        synchronized (this.tuftsMap) {
+            Grass tuft;
+            do {
+                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+            }
+            while (tuftsMap.containsKey(tuft.getPosition()));
+            this.tuftsMap.put(tuft.getPosition(), tuft);
+            if (tuft.belongsToJungle(this.jungle)) this.jungle.emptyPlaces--;
+            else this.emptyPlaces--;
         }
-        while (tuftsMap.containsKey(tuft.getPosition()));
-        this.tuftsMap.put(tuft.getPosition(), tuft);
-        if(tuft.belongsToJungle(this.jungle)) this.jungle.emptyPlaces--;
-        else this.emptyPlaces--;
     }
 
     private void placeOneTuftOnMap(Random rand){
-        Grass tuft;
-        do{
-            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        synchronized (this.tuftsMap) {
+            Grass tuft;
+            do {
+                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+            }
+            while (tuftsMap.containsKey(tuft.getPosition()) || tuft.belongsToJungle(this.jungle));
+            this.tuftsMap.put(tuft.getPosition(), tuft);
+            this.emptyPlaces--;
         }
-        while (tuftsMap.containsKey(tuft.getPosition()) || tuft.belongsToJungle(this.jungle));
-        this.tuftsMap.put(tuft.getPosition(), tuft);
-        this.emptyPlaces--;
     }
 
     private void placeOneTuftOnJungle(Random rand){
-        Grass tuft;
-        do{
-            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+        synchronized (this.tuftsMap) {
+            Grass tuft;
+            do {
+                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
+            }
+            while (tuftsMap.containsKey(tuft.getPosition()) || !tuft.belongsToJungle(this.jungle));
+            this.tuftsMap.put(tuft.getPosition(), tuft);
+            this.jungle.emptyPlaces--;
         }
-        while (tuftsMap.containsKey(tuft.getPosition()) || !tuft.belongsToJungle(this.jungle));
-        this.tuftsMap.put(tuft.getPosition(), tuft);
-        this.jungle.emptyPlaces--;
     }
 
 
     public void addNewPlants(){
-        Random rand = new Random(seed);
-        if(this.emptyPlaces > 0) this.placeOneTuftOnMap(rand);
-        if(this.jungle.emptyPlaces > 0) this.placeOneTuftOnJungle(rand);
+        synchronized (this.tuftsMap) {
+            Random rand = new Random(seed);
+            if (this.emptyPlaces > 0) this.placeOneTuftOnMap(rand);
+            if (this.jungle.emptyPlaces > 0) this.placeOneTuftOnJungle(rand);
+        }
     }
 
-    @Override
     public boolean isOccupied(Vector2d position) {
         return this.objectAt(position) != null;
     }
 
-    @Override
     public boolean place(Animal animal) {
-        try{
-            if(containsAnimal(animal.getPosition()))
-                throw new IllegalArgumentException("This field is occupied!") ;
-            this.vector2dToAnimal.put(animal.getPosition(), animal);
+        synchronized (this.vector2dToAnimal) {
+            try {
+                if (containsAnimal(animal.getPosition()))
+                    throw new IllegalArgumentException("This field is occupied!");
+                this.vector2dToAnimal.put(animal.getPosition(), animal);
 
-            animal.addObserver(this);
-            return true;
-        }
-        catch (IllegalArgumentException a){
-            System.out.println("Exception thrown  :" + a);
+                animal.addObserver(this);
+                return true;
+            } catch (IllegalArgumentException a) {
+                System.out.println("Exception thrown  :" + a);
 
-            return false;
+                return false;
+            }
         }
     }
 
-    @Override
     public Object objectAt(Vector2d position) {
-        if(vector2dToAnimal.containsKey(position)) return vector2dToAnimal.get(position);
-        if(tuftsMap.containsKey(position)) return tuftsMap.get(position);
-        return null;
+        synchronized (this.vector2dToAnimal) {
+            if (vector2dToAnimal.containsKey(position)) return vector2dToAnimal.get(position);
+            if (tuftsMap.containsKey(position)) return tuftsMap.get(position);
+            return null;
+        }
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d oldPosition, Vector2d newPosition){
-        if(isOccupied(newPosition) && tuftsMap.containsKey(newPosition)){
-            return true;
+    public void run() {
+        ArrayList<Animal> animals = new ArrayList<>(vector2dToAnimal.values());
+        for (Animal animal : animals) {
+            animal.move();
         }
-        return (!isOccupied(newPosition));
+    }
+
+    public void positionChanged(Animal animal ,Vector2d oldPosition, Vector2d newPosition) {
+        Collection<Animal> animals = vector2dToAnimal.get(oldPosition);
+        vector2dToAnimal.removeMapping(oldPosition, animal);
+        vector2dToAnimal.put(newPosition, animal);
     }
 
     public String toString(){
@@ -120,8 +139,10 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
         return mapInstance.draw(this.lowerLeft, this.upperRight);
     }
 
-    private boolean containsAnimal(Vector2d position){
-        return vector2dToAnimal.containsKey(position);
+    private boolean containsAnimal(Vector2d position) {
+        synchronized (this.vector2dToAnimal) {
+            return vector2dToAnimal.containsKey(position);
+        }
     }
 
 }

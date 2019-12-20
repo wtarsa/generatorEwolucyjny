@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Panel extends JPanel implements ActionListener {
 
     public ImageIcon titleImage;
-    public static final Color grassColor = new Color(19, 109, 21);
+    private static final Color grassColor = new Color(19, 109, 21);
     private Game game;
     private Game secondGame;
     private Graphics g;
@@ -28,6 +28,7 @@ public class Panel extends JPanel implements ActionListener {
 
     private int delay;
     private Timer timer;
+
 
     public Panel(Game game, Game secondGame) {
         this.game = game;
@@ -40,12 +41,9 @@ public class Panel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.g = g;
-        this.windowWidth = getGameplayWindowWidth();
-        this.windowHeight = getGameplayWindowHeight();
+        this.windowWidth = getGameplayWindowSize(World.width);
+        this.windowHeight = getGameplayWindowSize(World.height);
         this.space = 1280 - 22 - 2 * (windowWidth);
-        // border for title image
-        g.setColor(Color.BLACK);
-        g.drawRect(10, 10, 1260, 36);
 
         // title image
         titleImage = new ImageIcon("src/assets/logo.png");
@@ -71,9 +69,19 @@ public class Panel extends JPanel implements ActionListener {
         simulate(this.game, 10, 56 + windowHeight - (windowHeight / World.height));
         simulate(this.secondGame, 10+windowWidth+space, 56 + windowHeight - (windowHeight / World.height));
 
+        drawStrings(this.game, 10);
+        drawStrings(this.secondGame, 10+windowWidth+space);
+
         this.timer.start();
-      //  paintVerticalLines(10+windowWidth+space,56, g, windowWidth, windowHeight);
-        //paintHorizontalLines(10+windowWidth+space,56, g, windowWidth, windowHeight);
+    }
+
+    private void drawStrings(Game game, int leftMargin){
+        synchronized (game.map.tuftsMap) {
+
+            g.setColor(Color.BLACK);
+            g.drawString("animals: " + game.map.vector2dToAnimal.values().size(), leftMargin, 700);
+            g.drawString("grass: " + game.map.tuftsMap.values().size(), leftMargin, 720);
+        }
     }
 
     private void simulate(Game game, int i1, int i2) {
@@ -81,41 +89,17 @@ public class Panel extends JPanel implements ActionListener {
         drawAnimals(g, i1, i2, windowWidth, windowHeight, game);
     }
 
-    private void paintVerticalLines(int i1, int i2, Graphics g, int width, int height) {
-        g.setColor(Color.BLACK);
-        for (int i = 1; i < World.width; i++) {
-            g.drawLine(i1 + ((width / World.width) * i), i2, i1 + ((width / World.width) * i), i2 + height);
-        }
-    }
-
-    private void paintHorizontalLines(int i1, int i2, Graphics g, int width, int height) {
-        g.setColor(Color.BLACK);
-        for (int i = 1; i < World.height; i++) {
-            g.drawLine(i1, i2 + ((height / World.height) * i), i1 + width, i2 + ((height / World.height) * i));
-        }
-    }
-
-    private int getGameplayWindowWidth() {
+    private int getGameplayWindowSize(int x) {
         int size = 624;
-        while (size % World.width != 0) size--;
-        return size;
-    }
-
-    private int getGameplayWindowHeight() {
-        int size = 624;
-        while (size % World.height != 0) size--;
+        while (size % x != 0) size--;
         return size;
     }
 
     private void drawGrass(Graphics g, int i, int i1, int width, int height, Game game) {
-        List<Vector2d> grassPositions = new CopyOnWriteArrayList<Vector2d>(game.map.tuftsMap.keySet());
-     /*   Set<Map.Entry<Vector2d, Grass>> grasses = new HashSet<>(game.map.tuftsMap.entrySet());
-
-        for(Map.Entry<Vector2d, Grass> grass: grasses){
-            g.setColor(grassColor);
-            g.fillRect(i + grass.getKey().x * (width / World.width) + 1, i1 - grass.getKey().y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
+        List<Vector2d> grassPositions = new ArrayList<>();
+        synchronized (game.map.tuftsMap.keySet()){
+            grassPositions.addAll(game.map.tuftsMap.keySet());
         }
-*/
         for (Vector2d position : grassPositions) {
             g.setColor(grassColor);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
@@ -123,17 +107,14 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void drawAnimals(Graphics g, int i, int i1, int width, int height, Game game) {
-        //ArrayList<Vector2d> animalsPositions = new ArrayList<Vector2d>(game.map.vector2dToAnimal.keySet());
-        List<Animal> animals = new CopyOnWriteArrayList<Animal>(game.map.vector2dToAnimal.values());
+        List<Animal> animals = new ArrayList<Animal>();
+        synchronized (game.map.vector2dToAnimal){
+            animals.addAll(game.map.vector2dToAnimal.values());
+        }
         for (Animal animal: animals) {
             g.setColor(getAnimalColor(animal.energy));
             g.fillRect(i + animal.position.x * (width / World.width) + 1, i1 - animal.position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
         }
-      /* Set<Map.Entry<Vector2d, Animal>> animals = new HashSet<>(game.map.vector2dToAnimal.entries());
-       for (Map.Entry<Vector2d, Animal> animal: animals) {
-            g.setColor(getAnimalColor(animal.getValue().energy));
-            g.fillRect(i + animal.getKey().x * (width / World.width) + 1, i1 - animal.getKey().y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);
-       }*/
     }
 
     private void cleanBackground(Graphics g, int windowWidth, int windowHeight, int space) {

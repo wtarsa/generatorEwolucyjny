@@ -13,7 +13,6 @@ public class World {
     public static int width;
     public static int height;
     public static int initialAnimalsNumber;
-    public static int simulationLength;
     public static int delay;
     public static float startEnergy;
     public static float moveEnergy;

@@ -6,15 +6,29 @@
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/elements/Animal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/AbstractWorldMap.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/GrassField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/MapVisualizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/MapVisualizer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GUI/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Frame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GUI/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Panel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/elements/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/elements/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/AbstractWorldMap.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/map/GrassField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/GrassField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/IWorldMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/MapVisualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/MapVisualizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/Vector2d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/Vector2d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/GrassFieldTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/MapDirectionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Vector2dTest.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -157,6 +171,8 @@
       <workItem from="1576084838156" duration="117000" />
       <workItem from="1576331596379" duration="19686000" />
       <workItem from="1576410047524" duration="14304000" />
+      <workItem from="1576836026430" duration="764000" />
+      <workItem from="1576851544913" duration="1939000" />
     </task>
     <servers />
   </component>
