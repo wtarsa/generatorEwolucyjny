@@ -7,7 +7,6 @@ import map.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game {
 
@@ -38,10 +37,9 @@ public class Game {
 
     private void deleteDeadAnimals() {
         synchronized (this.map.vector2dToAnimal) {
-            List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.values());
+            List<Animal> animals = this.map.getAnimals();
             for (Animal animal : animals) {
                 if (animal.energy <= 0.0) {
-
                     this.map.vector2dToAnimal.removeMapping(animal.getPosition(), animal);
                 }
             }
@@ -49,17 +47,15 @@ public class Game {
     }
 
     private void subtractMoveEnergy() {
-        synchronized (this.map.vector2dToAnimal) {
-            List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.values());
-            for (Animal animal : animals) {
-                animal.energy -= World.moveEnergy;
-            }
+        List<Animal> animals = this.map.getAnimals();
+        for (Animal animal : animals) {
+            animal.energy -= World.moveEnergy;
         }
     }
 
     private void addPlantEnergy() {
-        synchronized (this.map.vector2dToAnimal) {
-            List<Vector2d> positions = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.keySet());
+        synchronized (this.map.tuftsMap) {
+            List<Vector2d> positions = this.map.getAnimalPositions();
             for (Vector2d position : positions) {
                 if (this.map.tuftsMap.containsKey(position)) {
                     if (this.map.tuftsMap.get(position).belongsToJungle(this.map.jungle)) this.map.jungle.emptyPlaces++;
@@ -67,7 +63,7 @@ public class Game {
                     this.map.tuftsMap.remove(position);
                     double maxEnergy = -2e9;
                     int animalsWithMaxEnergy = 0;
-                    List<Animal> animals = new CopyOnWriteArrayList<>(this.map.vector2dToAnimal.get(position));
+                    List<Animal> animals = this.map.getAnimals();
                     for (Animal animal : animals) {
                         if (Double.compare(maxEnergy, animal.energy) < 0) {
                             maxEnergy = animal.energy;
@@ -98,8 +94,7 @@ public class Game {
     }
     private void addNewAnimals() {
         synchronized (this.map.vector2dToAnimal) {
-
-            ArrayList<Vector2d> positions = new ArrayList<>(this.map.vector2dToAnimal.keySet());
+            List<Vector2d> positions = this.map.getAnimalPositions();
             for (Vector2d position : positions) {
                 if (this.map.vector2dToAnimal.get(position).size() > 1) {
                     ArrayList<Animal> animalsOnOnePosition = new ArrayList<>(this.map.vector2dToAnimal.get(position));
@@ -126,23 +121,20 @@ public class Game {
     }
 
     public void run() {
-        synchronized (this.map.vector2dToAnimal) {
-
-            if (this.map.vector2dToAnimal.size() != 0) {
-                this.deleteDeadAnimals();
-                this.map.run();
-                if (DEBUG) System.out.println(this.map.toString());
-                if (DEBUG) System.out.println("Before:");
-                if (DEBUG) printEnergy();
-                this.subtractMoveEnergy();
-                this.addPlantEnergy();
-                if (DEBUG) System.out.println("After:");
-                if (DEBUG) printEnergy();
-                this.map.addNewPlants();
-                this.addNewAnimals();
-                System.out.println("map: " + this.map.emptyPlaces);
-                System.out.println("jungle: " + this.map.jungle.emptyPlaces);
-            }
+        if (this.map.vector2dToAnimal.size() != 0) {
+            this.deleteDeadAnimals();
+            this.map.run();
+            if (DEBUG) System.out.println(this.map.toString());
+            if (DEBUG) System.out.println("Before:");
+            if (DEBUG) printEnergy();
+            this.subtractMoveEnergy();
+            this.addPlantEnergy();
+            if (DEBUG) System.out.println("After:");
+            if (DEBUG) printEnergy();
+            this.map.addNewPlants();
+            this.addNewAnimals();
+            System.out.println("map: " + this.map.emptyPlaces);
+            System.out.println("jungle: " + this.map.jungle.emptyPlaces);
         }
     }
 
@@ -153,14 +145,11 @@ public class Game {
     }
 
     private void printEnergy() {
-        synchronized (this.map.vector2dToAnimal) {
-
-            ArrayList<Animal> animals = new ArrayList<>(this.map.vector2dToAnimal.values());
-            for (Animal animal : animals) {
-                System.out.print(animal.getPosition().toString() + " ");
-                System.out.print(animal.ID + " ");
-                System.out.println(animal.energy);
-            }
+        List<Animal> animals = this.map.getAnimals();
+        for (Animal animal : animals) {
+            System.out.print(animal.getPosition().toString() + " ");
+            System.out.print(animal.ID + " ");
+            System.out.println(animal.energy);
         }
     }
 }

@@ -7,10 +7,8 @@ import elements.IPositionChangeObserver;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GrassField implements IPositionChangeObserver {
 
@@ -32,6 +30,7 @@ public class GrassField implements IPositionChangeObserver {
         this.emptyPlaces = World.width*World.height - this.jungle.emptyPlaces;
     }
 
+    //Grass placing
     public void placeGrassTufts(){
         synchronized (this.tuftsMap) {
             Random rand = new Random(seed);
@@ -128,8 +127,7 @@ public class GrassField implements IPositionChangeObserver {
         }
     }
 
-    public void positionChanged(Animal animal ,Vector2d oldPosition, Vector2d newPosition) {
-        Collection<Animal> animals = vector2dToAnimal.get(oldPosition);
+    public void positionChanged(Animal animal, Vector2d oldPosition, Vector2d newPosition) {
         vector2dToAnimal.removeMapping(oldPosition, animal);
         vector2dToAnimal.put(newPosition, animal);
     }
@@ -139,10 +137,26 @@ public class GrassField implements IPositionChangeObserver {
         return mapInstance.draw(this.lowerLeft, this.upperRight);
     }
 
+    // mapa tak na prawde, do wywalenia
     private boolean containsAnimal(Vector2d position) {
         synchronized (this.vector2dToAnimal) {
             return vector2dToAnimal.containsKey(position);
         }
     }
 
+    public List<Animal> getAnimals(){
+        synchronized (this.vector2dToAnimal) {
+            List<Animal> animals = new CopyOnWriteArrayList<>();
+            animals.addAll(this.vector2dToAnimal.values());
+            return animals;
+        }
+    }
+
+    public List<Vector2d> getAnimalPositions(){
+        synchronized (this.vector2dToAnimal){
+            List<Vector2d> positions = new CopyOnWriteArrayList<Vector2d>();
+            positions.addAll(this.vector2dToAnimal.keySet());
+            return positions;
+        }
+    }
 }
