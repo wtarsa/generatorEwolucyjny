@@ -76,12 +76,11 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void drawStrings(Game game, int leftMargin){
-        synchronized (game.map.tuftsMap) {
+        g.setColor(Color.BLACK);
+        g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
+        g.drawString("grass: " + game.map.tuftsMap.getAllGrasses().size(), leftMargin, 720);
+        g.drawString("dominant genotype: " + game.map.genotypeMap.mostCommonGenotype(), leftMargin, 740);
 
-            g.setColor(Color.BLACK);
-            g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
-            g.drawString("grass: " + game.map.tuftsMap.getAllGrasses().size(), leftMargin, 720);
-        }
     }
 
     private void simulate(Game game, int i1, int i2) {

@@ -14,6 +14,7 @@ public class GrassField implements IPositionChangeObserver {
     protected Vector2d lowerLeft;
     public AnimalHashMap vector2dToAnimal = new AnimalHashMap();
     public TuftsMap tuftsMap = new TuftsMap();
+    public GenotypeMap genotypeMap = new GenotypeMap();
     public int emptyPlaces;
     private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
@@ -83,6 +84,7 @@ public class GrassField implements IPositionChangeObserver {
 
     public boolean place(Animal animal) {
         this.vector2dToAnimal.placeAnimal(animal.getPosition(), animal);
+        this.genotypeMap.add(animal.ID, animal);
         animal.addObserver(this);
         return true;
     }

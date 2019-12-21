@@ -40,6 +40,7 @@ public class Game {
         for (Animal animal : animals) {
             if (animal.energy <= 0.0) {
                 this.map.vector2dToAnimal.removeAnimal(animal.getPosition(), animal);
+                this.map.genotypeMap.remove(animal.ID, animal);
             }
         }
     }
