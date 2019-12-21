@@ -82,16 +82,9 @@ public class GrassField implements IPositionChangeObserver {
     }
 
     public boolean place(Animal animal) {
-        try {
-            if (this.vector2dToAnimal.containsAnimal(animal.getPosition()))
-                throw new IllegalArgumentException("This field is occupied!");
-            this.vector2dToAnimal.placeAnimal(animal.getPosition(), animal);
-            animal.addObserver(this);
-            return true;
-        } catch (IllegalArgumentException a) {
-            System.out.println("Exception thrown  :" + a);
-            return false;
-        }
+        this.vector2dToAnimal.placeAnimal(animal.getPosition(), animal);
+        animal.addObserver(this);
+        return true;
     }
 
     public Object objectAt(Vector2d position) {
