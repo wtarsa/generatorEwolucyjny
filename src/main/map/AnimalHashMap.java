@@ -57,19 +57,21 @@ public class AnimalHashMap{
         }
     }
 
-    public void placeAnimal(Animal animal, Vector2d position){
+    public void placeAnimal(Vector2d position, Animal animal){
         synchronized (this.vector2dToAnimal){
             this.vector2dToAnimal.put(position, animal);
         }
     }
 
-    public void removeAnimal(Animal animal, Vector2d position){
+    public void removeAnimal(Vector2d position, Animal animal){
         synchronized (this.vector2dToAnimal){
             this.vector2dToAnimal.removeMapping(position, animal);
         }
     }
 
-
+    public boolean isEmpty(){
+        return this.vector2dToAnimal.isEmpty();
+    }
 
 
 }

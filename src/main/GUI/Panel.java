@@ -79,7 +79,7 @@ public class Panel extends JPanel implements ActionListener {
         synchronized (game.map.tuftsMap) {
 
             g.setColor(Color.BLACK);
-            g.drawString("animals: " + game.map.vector2dToAnimal.values().size(), leftMargin, 700);
+            g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
             g.drawString("grass: " + game.map.tuftsMap.values().size(), leftMargin, 720);
         }
     }
@@ -107,10 +107,7 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void drawAnimals(Graphics g, int i, int i1, int width, int height, Game game) {
-        List<Animal> animals = new ArrayList<Animal>();
-        synchronized (game.map.vector2dToAnimal){
-            animals.addAll(game.map.vector2dToAnimal.values());
-        }
+        List<Animal> animals = game.map.vector2dToAnimal.getAnimals();
         for (Animal animal: animals) {
             g.setColor(getAnimalColor(animal.energy));
             g.fillRect(i + animal.position.x * (width / World.width) + 1, i1 - animal.position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);

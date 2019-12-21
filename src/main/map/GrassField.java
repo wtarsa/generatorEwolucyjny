@@ -4,19 +4,15 @@ import app.World;
 import elements.Animal;
 import elements.Grass;
 import elements.IPositionChangeObserver;
-import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GrassField implements IPositionChangeObserver {
 
 
     protected Vector2d upperRight;
     protected Vector2d lowerLeft;
-    public MultiValuedMap<Vector2d, Animal> vector2dToAnimal = new ArrayListValuedHashMap<>();
-
+    public AnimalHashMap vector2dToAnimal = new AnimalHashMap();
     public int emptyPlaces;
     private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
@@ -96,67 +92,39 @@ public class GrassField implements IPositionChangeObserver {
     }
 
     public boolean place(Animal animal) {
-        synchronized (this.vector2dToAnimal) {
-            try {
-                if (containsAnimal(animal.getPosition()))
-                    throw new IllegalArgumentException("This field is occupied!");
-                this.vector2dToAnimal.put(animal.getPosition(), animal);
-
-                animal.addObserver(this);
-                return true;
-            } catch (IllegalArgumentException a) {
-                System.out.println("Exception thrown  :" + a);
-
-                return false;
-            }
+        try {
+            if (this.vector2dToAnimal.containsAnimal(animal.getPosition()))
+                throw new IllegalArgumentException("This field is occupied!");
+            this.vector2dToAnimal.placeAnimal(animal.getPosition(), animal);
+            animal.addObserver(this);
+            return true;
+        } catch (IllegalArgumentException a) {
+            System.out.println("Exception thrown  :" + a);
+            return false;
         }
     }
 
     public Object objectAt(Vector2d position) {
-        synchronized (this.vector2dToAnimal) {
-            if (vector2dToAnimal.containsKey(position)) return vector2dToAnimal.get(position);
-            if (tuftsMap.containsKey(position)) return tuftsMap.get(position);
-            return null;
-        }
+        if (vector2dToAnimal.containsAnimal(position)) return vector2dToAnimal.allAnimalsOnPosition(position);
+        if (tuftsMap.containsKey(position)) return tuftsMap.get(position);
+        return null;
     }
 
     public void run() {
-        ArrayList<Animal> animals = new ArrayList<>(vector2dToAnimal.values());
+        List<Animal> animals = this.vector2dToAnimal.getAnimals();
         for (Animal animal : animals) {
             animal.move();
         }
     }
 
     public void positionChanged(Animal animal, Vector2d oldPosition, Vector2d newPosition) {
-        vector2dToAnimal.removeMapping(oldPosition, animal);
-        vector2dToAnimal.put(newPosition, animal);
+        vector2dToAnimal.removeAnimal(oldPosition, animal);
+        vector2dToAnimal.placeAnimal(newPosition, animal);
     }
 
-    public String toString(){
+    public String toString() {
         MapVisualizer mapInstance = new MapVisualizer(this);
         return mapInstance.draw(this.lowerLeft, this.upperRight);
     }
 
-    // mapa tak na prawde, do wywalenia
-    private boolean containsAnimal(Vector2d position) {
-        synchronized (this.vector2dToAnimal) {
-            return vector2dToAnimal.containsKey(position);
-        }
-    }
-
-    public List<Animal> getAnimals(){
-        synchronized (this.vector2dToAnimal) {
-            List<Animal> animals = new CopyOnWriteArrayList<>();
-            animals.addAll(this.vector2dToAnimal.values());
-            return animals;
-        }
-    }
-
-    public List<Vector2d> getAnimalPositions(){
-        synchronized (this.vector2dToAnimal){
-            List<Vector2d> positions = new CopyOnWriteArrayList<Vector2d>();
-            positions.addAll(this.vector2dToAnimal.keySet());
-            return positions;
-        }
-    }
 }
