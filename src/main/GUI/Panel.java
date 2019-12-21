@@ -3,16 +3,13 @@ package GUI;
 import app.Game;
 import app.World;
 import elements.Animal;
-import elements.Grass;
 import map.Vector2d;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.List;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
@@ -24,6 +21,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
     private Graphics g;
     private int windowWidth;
     private int windowHeight;
+    private int cellWidth = 100;
+    private int cellHeight = 100;
     private int space;
     private boolean spacePressed = false;
     private int delay;
@@ -36,14 +35,18 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
         this.secondGame = secondGame;
         this.delay = World.delay;
         this.timer = new Timer(delay, this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+        this.mouseListener();
     }
-
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.g = g;
         this.windowWidth = getGameplayWindowSize(World.width);
         this.windowHeight = getGameplayWindowSize(World.height);
+        this.cellHeight = windowHeight/World.height;
+        this.cellWidth = windowWidth/World.width;
         this.space = 1280 - 22 - 2 * (windowWidth);
 
         // title image
@@ -72,6 +75,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
         drawStrings(this.game, 10);
         drawStrings(this.secondGame, 10+windowWidth+space);
+        g.drawString("day: " + game.day, 10, 30);
+
         this.timer.start();
         g.dispose();
 
@@ -79,7 +84,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
     private void drawStrings(Game game, int leftMargin){
         g.setColor(Color.BLACK);
-        g.drawString("day: " + game.day, leftMargin, 680);
         g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
         g.drawString("grass: " + game.map.tuftsMap.getAllGrasses().size(), leftMargin, 720);
         g.drawString("dominant genotype: " + game.map.genotypeMap.mostCommonGenotype(), leftMargin, 740);
@@ -143,10 +147,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
             this.secondGame.run();
             repaint();
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
 
     }
 
@@ -161,11 +161,61 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
             }
             System.out.println("space");
         }
-
     }
 
     @Override
-    public void keyReleased(KeyEvent keyEvent) {
+    public void keyReleased(KeyEvent keyEvent) { }
 
+    @Override
+    public void keyTyped(KeyEvent keyEvent) { }
+
+
+    //wypisuje w konsoli genotyp wybranego zwierzęcia, nie zdążyłem tego podpiąć do visualizacji
+    private void mouseListener(){
+        this.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
+                int x = mouseEvent.getX();
+                int y = mouseEvent.getY();
+                System.out.println(x + "," + y);
+                int gameplayNumber = chooseGameplay(x, y);
+                if(gameplayNumber == 1){
+                    Vector2d position = getAnimalPosition(x, y, 10, 56+windowHeight);
+                    if(game.map.vector2dToAnimal.containsAnimal(position)) showAnimalInfo(game, position, 10);
+                }
+                else if(gameplayNumber == 2){
+                    Vector2d position = getAnimalPosition(x, y, 10+space+windowWidth, 56+windowHeight);
+                    if(secondGame.map.vector2dToAnimal.containsAnimal(position)){
+                        showAnimalInfo(secondGame, position, 10+space+windowWidth);
+                    }
+                }
+            }
+        });
     }
+
+    private int chooseGameplay(int x, int y){
+        if(x > 10 && y < 56+this.windowHeight && x < 10+this.windowWidth && y > 56){ return 1;}// from first gameplay
+        else if(x > 10+space+this.windowWidth && y < 56+this.windowHeight && x < 10+(2*this.windowWidth)+space && y > 56){ return 2;} //from second gameplay
+        return 0;
+    }
+
+
+    private Vector2d getAnimalPosition(int x, int y, int xg, int yg){
+        int posX = -1;
+        int posY = -1;
+        while(xg+(this.cellWidth*posX) < x) posX++;
+        while(yg-(this.cellHeight*posY) > y) posY++;
+        return new Vector2d(posX-1, posY-1);
+    }
+
+    private void showAnimalInfo(Game game, Vector2d position, int leftMargin){
+        List<Animal> animals = game.map.vector2dToAnimal.allAnimalsOnPosition(position);
+        Animal animal = animals.get(0);
+        for(Animal animal1: animals) {
+            if(Double.compare(animal1.energy, animal.energy) > 0) animal = animal1;
+        }
+        System.out.println(animal.ID);
+    }
+
+
 }
