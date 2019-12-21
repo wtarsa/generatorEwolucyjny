@@ -36,12 +36,10 @@ public class Game {
     }
 
     private void deleteDeadAnimals() {
-        synchronized (this.map.vector2dToAnimal) {
-            List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
-            for (Animal animal : animals) {
-                if (animal.energy <= 0.0) {
-                    this.map.vector2dToAnimal.removeAnimal(animal.getPosition(), animal);
-                }
+        List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
+        for (Animal animal : animals) {
+            if (animal.energy <= 0.0) {
+                this.map.vector2dToAnimal.removeAnimal(animal.getPosition(), animal);
             }
         }
     }
@@ -54,44 +52,41 @@ public class Game {
     }
 
     private void addPlantEnergy() {
-        synchronized (this.map.tuftsMap) {
-            List<Vector2d> positions = this.map.vector2dToAnimal.getAnimalPositions();
-            for (Vector2d position : positions) {
-                if (this.map.tuftsMap.containsKey(position)) {
-                    if (this.map.tuftsMap.get(position).belongsToJungle(this.map.jungle)) this.map.jungle.emptyPlaces++;
-                    else this.map.emptyPlaces++;
-                    this.map.tuftsMap.remove(position);
-                    double maxEnergy = -2e9;
-                    int animalsWithMaxEnergy = 0;
-                    List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
-                    for (Animal animal : animals) {
-                        if (Double.compare(maxEnergy, animal.energy) < 0) {
-                            maxEnergy = animal.energy;
-                            animalsWithMaxEnergy = 1;
-                        } else if (Double.compare(maxEnergy, animal.energy) == 0) animalsWithMaxEnergy++;
-                    }
-                    for (Animal animal : animals) {
-                        if (Double.compare(maxEnergy, animal.energy) == 0)
-                            animal.energy += (World.plantEnergy / animalsWithMaxEnergy);
-                    }
+        List<Vector2d> positions = this.map.vector2dToAnimal.getAnimalPositions();
+        for (Vector2d position : positions) {
+            if (this.map.tuftsMap.containsGrass(position)) {
+                if (this.map.tuftsMap.getGrass(position).belongsToJungle(this.map.jungle)) this.map.jungle.emptyPlaces++;
+                else this.map.emptyPlaces++;
+                this.map.tuftsMap.removeGrass(position);
+                double maxEnergy = -2e9;
+                int animalsWithMaxEnergy = 0;
+                List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
+                for (Animal animal : animals) {
+                    if (Double.compare(maxEnergy, animal.energy) < 0) {
+                        maxEnergy = animal.energy;
+                        animalsWithMaxEnergy = 1;
+                    } else if (Double.compare(maxEnergy, animal.energy) == 0) animalsWithMaxEnergy++;
+                }
+                for (Animal animal : animals) {
+                    if (Double.compare(maxEnergy, animal.energy) == 0)
+                        animal.energy += (World.plantEnergy / animalsWithMaxEnergy);
                 }
             }
         }
     }
 
     private ArrayList<Vector2d> emptyPosition(Vector2d position) {
-        synchronized (this.map.vector2dToAnimal) {
-            MapDirection direction = MapDirection.NORTH;
-            ArrayList<Vector2d> emptyPlaces = new ArrayList<Vector2d>();
-            for (int i = 0; i < 8; i++) {
-                if (this.map.vector2dToAnimal.allAnimalsOnPosition(position.add(direction.toUnitVector()).replaceOnMap()).isEmpty()) {
-                    emptyPlaces.add(position.add(direction.toUnitVector()).replaceOnMap());
-                }
-                direction = direction.next();
+        MapDirection direction = MapDirection.NORTH;
+        ArrayList<Vector2d> emptyPlaces = new ArrayList<Vector2d>();
+        for (int i = 0; i < 8; i++) {
+            if (this.map.vector2dToAnimal.allAnimalsOnPosition(position.add(direction.toUnitVector()).replaceOnMap()).isEmpty()) {
+                emptyPlaces.add(position.add(direction.toUnitVector()).replaceOnMap());
             }
-            return emptyPlaces;
+            direction = direction.next();
         }
+        return emptyPlaces;
     }
+
     private void addNewAnimals() {
         List<Vector2d> positions = this.map.vector2dToAnimal.getAnimalPositions();
         for (Vector2d position : positions) {

@@ -80,7 +80,7 @@ public class Panel extends JPanel implements ActionListener {
 
             g.setColor(Color.BLACK);
             g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
-            g.drawString("grass: " + game.map.tuftsMap.values().size(), leftMargin, 720);
+            g.drawString("grass: " + game.map.tuftsMap.getAllGrasses().size(), leftMargin, 720);
         }
     }
 
@@ -96,10 +96,7 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void drawGrass(Graphics g, int i, int i1, int width, int height, Game game) {
-        List<Vector2d> grassPositions = new ArrayList<>();
-        synchronized (game.map.tuftsMap.keySet()){
-            grassPositions.addAll(game.map.tuftsMap.keySet());
-        }
+        List<Vector2d> grassPositions = game.map.tuftsMap.getAllPositions();
         for (Vector2d position : grassPositions) {
             g.setColor(grassColor);
             g.fillRect(i + position.x * (width / World.width) + 1, i1 - position.y * (height / World.height) + 1, width / World.width - 1, height / World.height - 1);

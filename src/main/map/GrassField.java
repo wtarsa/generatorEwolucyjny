@@ -13,11 +13,11 @@ public class GrassField implements IPositionChangeObserver {
     protected Vector2d upperRight;
     protected Vector2d lowerLeft;
     public AnimalHashMap vector2dToAnimal = new AnimalHashMap();
+    public TuftsMap tuftsMap = new TuftsMap();
     public int emptyPlaces;
     private int seed = World.startSeed;
     private int tuftOfGrassNumber = 0;
     public Jungle jungle;
-    public LinkedHashMap<Vector2d, Grass> tuftsMap = new LinkedHashMap<>();
     public GrassField(int number){
         this.tuftOfGrassNumber = number;
         this.upperRight = new Vector2d(World.width-1, World.height-1);
@@ -28,10 +28,8 @@ public class GrassField implements IPositionChangeObserver {
 
     //Grass placing
     public void placeGrassTufts(){
-        synchronized (this.tuftsMap) {
-            Random rand = new Random(seed);
-            fillMapWithTufts(rand);
-        }
+        Random rand = new Random(seed);
+        fillMapWithTufts(rand);
     }
 
     private void fillMapWithTufts(Random rand){
@@ -42,49 +40,41 @@ public class GrassField implements IPositionChangeObserver {
     }
 
     private void placeOneTuftRandomly(Random rand){
-        synchronized (this.tuftsMap) {
-            Grass tuft;
-            do {
-                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
-            }
-            while (tuftsMap.containsKey(tuft.getPosition()));
-            this.tuftsMap.put(tuft.getPosition(), tuft);
-            if (tuft.belongsToJungle(this.jungle)) this.jungle.emptyPlaces--;
-            else this.emptyPlaces--;
+        Grass tuft;
+        do {
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
         }
+        while (this.tuftsMap.containsGrass(tuft.getPosition()));
+        this.tuftsMap.placeGrass(tuft.getPosition(), tuft);
+        if (tuft.belongsToJungle(this.jungle)) this.jungle.emptyPlaces--;
+        else this.emptyPlaces--;
     }
 
     private void placeOneTuftOnMap(Random rand){
-        synchronized (this.tuftsMap) {
-            Grass tuft;
-            do {
-                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
-            }
-            while (tuftsMap.containsKey(tuft.getPosition()) || tuft.belongsToJungle(this.jungle));
-            this.tuftsMap.put(tuft.getPosition(), tuft);
-            this.emptyPlaces--;
+        Grass tuft;
+        do {
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
         }
+        while (tuftsMap.containsGrass(tuft.getPosition()) || tuft.belongsToJungle(this.jungle));
+        this.tuftsMap.placeGrass(tuft.getPosition(), tuft);
+        this.emptyPlaces--;
     }
 
     private void placeOneTuftOnJungle(Random rand){
-        synchronized (this.tuftsMap) {
-            Grass tuft;
-            do {
-                tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
-            }
-            while (tuftsMap.containsKey(tuft.getPosition()) || !tuft.belongsToJungle(this.jungle));
-            this.tuftsMap.put(tuft.getPosition(), tuft);
-            this.jungle.emptyPlaces--;
+        Grass tuft;
+        do {
+            tuft = new Grass(new Vector2d(rand.nextInt(World.width), rand.nextInt(World.height)));
         }
+        while (tuftsMap.containsGrass(tuft.getPosition()) || !tuft.belongsToJungle(this.jungle));
+        this.tuftsMap.placeGrass(tuft.getPosition(), tuft);
+        this.jungle.emptyPlaces--;
     }
 
 
     public void addNewPlants(){
-        synchronized (this.tuftsMap) {
-            Random rand = new Random(seed);
-            if (this.emptyPlaces > 0) this.placeOneTuftOnMap(rand);
-            if (this.jungle.emptyPlaces > 0) this.placeOneTuftOnJungle(rand);
-        }
+        Random rand = new Random(seed);
+        if (this.emptyPlaces > 0) this.placeOneTuftOnMap(rand);
+        if (this.jungle.emptyPlaces > 0) this.placeOneTuftOnJungle(rand);
     }
 
     public boolean isOccupied(Vector2d position) {
@@ -106,7 +96,7 @@ public class GrassField implements IPositionChangeObserver {
 
     public Object objectAt(Vector2d position) {
         if (vector2dToAnimal.containsAnimal(position)) return vector2dToAnimal.allAnimalsOnPosition(position);
-        if (tuftsMap.containsKey(position)) return tuftsMap.get(position);
+        if (tuftsMap.containsGrass(position)) return tuftsMap.getGrass(position);
         return null;
     }
 
