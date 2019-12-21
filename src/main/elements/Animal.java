@@ -15,10 +15,14 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     protected MapDirection direction;
     public Vector2d position;
     public Game game;
+    public int age;
+    public int children;
 
     ArrayList<IPositionChangeObserver> observerCollection = new ArrayList<>();
 
     public Animal(Game game){
+        this.age = 0;
+        this.children = 0;
         this.game = game;
         this.genotype = new Genotype(game);
         this.direction = this.genotype.getDirection();
@@ -29,17 +33,22 @@ public class Animal implements IMapElement, IPositionChangeObserver {
     }
 
     public Animal(Animal parent1, Animal parent2, Vector2d position){
+        this.age = 0;
         this.game = parent1.game;
         this.genotype = new Genotype(parent1.genotype, parent2.genotype, game);
         this.direction = this.genotype.getDirection();
         this.position = position;
         this.energy = (float) (0.25*parent1.energy + 0.25*parent2.energy);
         this.ID = this.genotype.getID();
-        parent1.energy = (float) (0.75*parent1.energy);
-        parent2.energy = (float) (0.75*parent2.energy);
+        updateParent(parent1);
+        updateParent(parent2);
         this.game.numberOfAnimals++;
     }
 
+    private void updateParent(Animal animal){
+        animal.children++;
+        animal.energy = (float) (0.75*animal.energy);
+    }
 
     @Override
     public boolean belongsToJungle(Jungle jungle){

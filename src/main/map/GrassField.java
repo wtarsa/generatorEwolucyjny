@@ -99,6 +99,7 @@ public class GrassField implements IPositionChangeObserver {
         List<Animal> animals = this.vector2dToAnimal.getAnimals();
         for (Animal animal : animals) {
             animal.move();
+            animal.age++;
         }
     }
 

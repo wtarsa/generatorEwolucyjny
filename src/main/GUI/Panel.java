@@ -77,9 +77,13 @@ public class Panel extends JPanel implements ActionListener {
 
     private void drawStrings(Game game, int leftMargin){
         g.setColor(Color.BLACK);
+        g.drawString("day: " + game.day, leftMargin, 680);
         g.drawString("animals: " + game.map.vector2dToAnimal.getAnimals().size(), leftMargin, 700);
         g.drawString("grass: " + game.map.tuftsMap.getAllGrasses().size(), leftMargin, 720);
         g.drawString("dominant genotype: " + game.map.genotypeMap.mostCommonGenotype(), leftMargin, 740);
+        g.drawString("average energy: " + game.averageAnimalEnergy, leftMargin, 760);
+        g.drawString("average age(dead animals): "+ game.averageAnimalAge, leftMargin, 780);
+        g.drawString("average child number: "+ game.averageChildNumber, leftMargin, 800);
 
     }
 

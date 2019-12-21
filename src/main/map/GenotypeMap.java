@@ -29,7 +29,9 @@ public class GenotypeMap {
     }
 
     private int animalsWithTheSameGenotype(String genotype){
-        return this.genotypeMap.get(genotype).size();
+        synchronized (this.genotypeMap) {
+            return this.genotypeMap.get(genotype).size();
+        }
     }
 
     public String mostCommonGenotype(){

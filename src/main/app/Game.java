@@ -1,5 +1,6 @@
 package app;
 
+import GUI.Panel;
 import elements.Animal;
 import map.GrassField;
 import map.MapDirection;
@@ -10,14 +11,24 @@ import java.util.List;
 
 public class Game {
 
+    public int day;
     public int seed;
     public int numberOfAnimals;
+    public float averageAnimalEnergy;
+    public float averageAnimalAge;
+    public float averageChildNumber;
     public GrassField map;
     private boolean DEBUG = false;
+    private ArrayList<Integer> lifeLength;
 
     public Game(int seed) {
         this.numberOfAnimals = 0;
+        this.averageAnimalEnergy = 0;
+        this.averageAnimalAge = 0;
+        this.averageChildNumber = 0;
         this.seed = seed;
+        this.day = 0;
+        this.lifeLength = new ArrayList<>();
     }
 
     public void beginSimulation(int initialAnimalsNumber){
@@ -41,6 +52,7 @@ public class Game {
             if (animal.energy <= 0.0) {
                 this.map.vector2dToAnimal.removeAnimal(animal.getPosition(), animal);
                 this.map.genotypeMap.remove(animal.ID, animal);
+                this.lifeLength.add(animal.age);
             }
         }
     }
@@ -116,6 +128,7 @@ public class Game {
 
     public void run() {
         if (!this.map.vector2dToAnimal.isEmpty()) {
+            this.day++;
             this.deleteDeadAnimals();
             this.map.run();
             if (DEBUG) System.out.println(this.map.toString());
@@ -127,11 +140,45 @@ public class Game {
             if (DEBUG) printEnergy();
             this.map.addNewPlants();
             this.addNewAnimals();
+            this.calculateAverageEnergy();
+            this.calculateAverageAge();
+            this.calculateAverageChildNumber();
             System.out.println("map: " + this.map.emptyPlaces);
             System.out.println("jungle: " + this.map.jungle.emptyPlaces);
         }
     }
 
+    private void calculateAverageEnergy(){
+        List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
+        float avg = 0;
+        for(Animal animal: animals){
+            avg += animal.energy;
+        }
+        avg /= this.map.vector2dToAnimal.getAnimals().size();
+        this.averageAnimalEnergy = avg;
+    }
+
+    private void calculateAverageAge(){
+        synchronized (this.lifeLength) {
+            float avg = 0;
+            for (Integer age : lifeLength) {
+                avg += age;
+            }
+            avg = avg / lifeLength.size();
+            this.averageAnimalAge = avg;
+        }
+    }
+
+    private void calculateAverageChildNumber(){
+        List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
+        float avg = 0;
+        for (Animal animal : animals) {
+            avg += animal.children;
+        }
+        avg = avg / this.map.vector2dToAnimal.animalsNumber();
+        this.averageChildNumber = avg;
+
+    }
 
     // for debugging purposes
     private void debug(boolean flag){

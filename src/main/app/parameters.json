@@ -1,12 +1,12 @@
 {
-  "width": 70,
-  "height": 70,
-  "seed": 12,
-  "startEnergy": 3000.0,
-  "moveEnergy": 3.0,
-  "plantEnergy": 15.0,
+  "width": 50,
+  "height": 50,
+  "seed": 13,
+  "startEnergy": 300.0,
+  "moveEnergy": 1.0,
+  "plantEnergy": 5.0,
   "jungleRatio": 0.2,
   "startGrassTuftsRatio": 0.4,
-  "initialAnimalsNumber": 1000,
-  "delay": 1
+  "initialAnimalsNumber": 400,
+  "delay": 10
 }
