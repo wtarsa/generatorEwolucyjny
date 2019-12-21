@@ -5,7 +5,6 @@ import app.World;
 import elements.Animal;
 import map.Vector2d;
 
-import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
@@ -170,14 +169,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
     public void keyTyped(KeyEvent keyEvent) { }
 
 
-    //wypisuje w konsoli genotyp wybranego zwierzęcia, nie zdążyłem tego podpiąć do visualizacji
+    //wypisuje w konsoli genotyp wybranego zwierzęcia, nie zdążyłem tego podpiąć do vizualizacji
     private void mouseListener(){
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent mouseEvent) {
                 super.mouseClicked(mouseEvent);
                 int x = mouseEvent.getX();
                 int y = mouseEvent.getY();
-                System.out.println(x + "," + y);
+               // System.out.println(x + "," + y);
                 int gameplayNumber = chooseGameplay(x, y);
                 if(gameplayNumber == 1){
                     Vector2d position = getAnimalPosition(x, y, 10, 56+windowHeight);
@@ -216,6 +215,5 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
         }
         System.out.println(animal.ID);
     }
-
 
 }

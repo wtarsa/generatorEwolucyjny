@@ -19,7 +19,7 @@ public class World {
     public static float plantEnergy;
     public static float jungleRatio;
     public static float startGrassTuftsRatio;
-
+    public static int stat_days;
 
     private Game game;
     private Game secondGame;
@@ -36,7 +36,6 @@ public class World {
             JSONParser.readJSON();
             World world = new World();
             world.frame.start();
-
         }
         catch (IOException ex){
             System.out.println("Problem while reading a JSON file...");

@@ -3,12 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/logo_big.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/TuftsMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/TuftsMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GUI/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Frame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GUI/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/map/TuftsMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/TuftsMap.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

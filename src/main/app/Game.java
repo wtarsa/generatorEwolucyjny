@@ -6,6 +6,7 @@ import map.GrassField;
 import map.MapDirection;
 import map.Vector2d;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Game {
     public int day;
     public int seed;
     public int numberOfAnimals;
+    public float averageAnimalNumberAll;
+    public float averageGrassNumberAll;
     public float averageAnimalEnergy;
     public float averageAnimalAge;
     public float averageChildNumber;
@@ -22,6 +25,8 @@ public class Game {
     private ArrayList<Integer> lifeLength;
 
     public Game(int seed) {
+        averageAnimalNumberAll = 1;
+        averageGrassNumberAll = 1;
         this.numberOfAnimals = 0;
         this.averageAnimalEnergy = 0;
         this.averageAnimalAge = 0;
@@ -143,9 +148,16 @@ public class Game {
             this.calculateAverageEnergy();
             this.calculateAverageAge();
             this.calculateAverageChildNumber();
-            //System.out.println("map: " + this.map.emptyPlaces);
-            //System.out.println("jungle: " + this.map.jungle.emptyPlaces);
+            this.calculateAverageAnimalNumberAll();
+            this.calculateAverageGrassNumberAll();
 
+            if(day == World.stat_days) {
+                try {
+                    JSONParser.createJSON(averageAnimalNumberAll, averageGrassNumberAll, averageAnimalEnergy, averageAnimalAge, averageChildNumber);
+                } catch (IOException ex) {
+                    System.out.println("Problem while creating a JSON file...");
+                }
+            }
         }
     }
 
@@ -161,12 +173,14 @@ public class Game {
 
     private void calculateAverageAge(){
         synchronized (this.lifeLength) {
-            float avg = 0;
-            for (Integer age : lifeLength) {
-                avg += age;
+            if(lifeLength.size() != 0) {
+                float avg = 0;
+                for (Integer age : lifeLength) {
+                    avg += age;
+                }
+                avg = avg / lifeLength.size();
+                this.averageAnimalAge = avg;
             }
-            avg = avg / lifeLength.size();
-            this.averageAnimalAge = avg;
         }
     }
 
@@ -181,6 +195,17 @@ public class Game {
 
     }
 
+    private void calculateAverageAnimalNumberAll(){
+        averageAnimalNumberAll *= (day-1);
+        averageAnimalNumberAll += this.map.vector2dToAnimal.animalsNumber();
+        averageAnimalNumberAll /= day;
+    }
+
+    private void calculateAverageGrassNumberAll(){
+        averageGrassNumberAll *= (day-1);
+        averageGrassNumberAll += this.map.tuftsMap.grassNumber();
+        averageGrassNumberAll /= day;
+    }
     // for debugging purposes
     private void debug(boolean flag){
         this.DEBUG = flag;

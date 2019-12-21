@@ -15,6 +15,7 @@ public class Frame extends JFrame{
     public Frame(Game game, Game secondGame){
         this.game = game;
         this.secondGame = secondGame;
+        this.setTitle("evolutionary_generator");
         this.setBounds(10, 10, 1280, 1000);
         this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 public class JSONParser {
 
+    public static int documentCount = 1;
+
     public static void readJSON() throws IOException {
         File file = new File("src/main/app/parameters.json");
         String content = FileUtils.readFileToString(file, "utf-8");
@@ -22,6 +24,21 @@ public class JSONParser {
         World.startGrassTuftsRatio = parameters.getFloat("startGrassTuftsRatio");
         World.initialAnimalsNumber = parameters.getInt("initialAnimalsNumber");
         World.delay = parameters.getInt("delay");
+        World.stat_days = parameters.getInt("stat_days");
+    }
+
+    public static void createJSON(float avg_animals, float avg_grasses, float avg_energy, float avg_age, float avg_children) throws IOException {
+        JSONObject stat = new JSONObject();
+        stat.put("average_animals_number", avg_animals);
+        stat.put("average_grass_number", avg_grasses);
+        stat.put("average_energy", avg_energy);
+        stat.put("average_age", avg_age);
+        stat.put("average_children_number", avg_children);
+
+
+        File file = new File("stat" + documentCount);
+        documentCount++;
+        FileUtils.writeStringToFile(file, stat.toString(), "utf-8");
     }
 }
 

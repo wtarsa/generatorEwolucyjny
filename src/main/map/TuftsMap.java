@@ -14,6 +14,12 @@ public class TuftsMap {
         this.tuftsMap = new LinkedHashMap<Vector2d, Grass>();
     }
 
+    public int grassNumber(){
+        synchronized (this.tuftsMap){
+            return this.tuftsMap.keySet().size();
+        }
+    }
+
     public boolean containsGrass(Vector2d position){
         synchronized (this.tuftsMap) {
             return this.tuftsMap.containsKey(position);
