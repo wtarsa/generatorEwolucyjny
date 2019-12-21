@@ -3,21 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dc8eedbd-a384-4656-a13b-0cd6731b4715" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Frame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/GUI/Panel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/JSONParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/World.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/TuftsMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/generatorEwolucyjny/map/TuftsMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/GUI/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Frame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/GUI/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GUI/Panel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/JSONParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/map/TuftsMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/map/TuftsMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +22,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
   </component>
   <component name="ProjectId" id="1UJDEnE9ADnTk1EO9WgWHpFaRWY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -162,6 +153,7 @@
       <workItem from="1576410047524" duration="14304000" />
       <workItem from="1576836026430" duration="764000" />
       <workItem from="1576851544913" duration="8696000" />
+      <workItem from="1576966105909" duration="1316000" />
     </task>
     <servers />
   </component>
