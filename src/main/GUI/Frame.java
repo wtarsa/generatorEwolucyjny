@@ -20,6 +20,7 @@ public class Frame extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.panel = new Panel(game, secondGame);
+        this.panel.setFocusable(true);
         this.add(panel);
 
         //setVisible must be on the end!

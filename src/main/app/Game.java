@@ -73,7 +73,7 @@ public class Game {
                 this.map.tuftsMap.removeGrass(position);
                 double maxEnergy = -2e9;
                 int animalsWithMaxEnergy = 0;
-                List<Animal> animals = this.map.vector2dToAnimal.getAnimals();
+                List<Animal> animals = this.map.vector2dToAnimal.allAnimalsOnPosition(position);
                 for (Animal animal : animals) {
                     if (Double.compare(maxEnergy, animal.energy) < 0) {
                         maxEnergy = animal.energy;
@@ -143,8 +143,9 @@ public class Game {
             this.calculateAverageEnergy();
             this.calculateAverageAge();
             this.calculateAverageChildNumber();
-            System.out.println("map: " + this.map.emptyPlaces);
-            System.out.println("jungle: " + this.map.jungle.emptyPlaces);
+            //System.out.println("map: " + this.map.emptyPlaces);
+            //System.out.println("jungle: " + this.map.jungle.emptyPlaces);
+
         }
     }
 

@@ -11,11 +11,11 @@ import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Panel extends JPanel implements ActionListener {
+public class Panel extends JPanel implements ActionListener, KeyListener {
 
     public ImageIcon titleImage;
     private static final Color grassColor = new Color(19, 109, 21);
@@ -25,12 +25,13 @@ public class Panel extends JPanel implements ActionListener {
     private int windowWidth;
     private int windowHeight;
     private int space;
-
+    private boolean spacePressed = false;
     private int delay;
     private Timer timer;
 
 
     public Panel(Game game, Game secondGame) {
+        addKeyListener(this);
         this.game = game;
         this.secondGame = secondGame;
         this.delay = World.delay;
@@ -71,8 +72,9 @@ public class Panel extends JPanel implements ActionListener {
 
         drawStrings(this.game, 10);
         drawStrings(this.secondGame, 10+windowWidth+space);
-
         this.timer.start();
+        g.dispose();
+
     }
 
     private void drawStrings(Game game, int leftMargin){
@@ -136,8 +138,34 @@ public class Panel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        this.game.run();
-        this.secondGame.run();
-        repaint();
+        if(!spacePressed) {
+            this.game.run();
+            this.secondGame.run();
+            repaint();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE){
+            if(!spacePressed){
+                spacePressed = true;
+            }
+            else{
+                spacePressed = false;
+            }
+            System.out.println("space");
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
     }
 }
