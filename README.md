@@ -14,14 +14,12 @@ to świat, który ewoluuje na naszych oczach! Stworzymy środowisko stepów
 i dżungli ze zwierzętami, które biegają, buszują w zaroślach, jedzą i rozmnażają
 się. A po kilka milionach lat zobaczymy, że wyewoluowały w różne gatunki!
 
-<img src="zwierzak.jpg"/>
 
 Świat naszej gry jest niezmiernie prosty. Składa się ze zwykłej, prostokątnej
 połaci, której brzegi zawijają się na drugą stronę. Większość świata pokrywają
 stepy, na których rośnie niewiele roślin stanowiących pożywienie zwierząt. Na
 środku świata znajduje się niewielka dżungla, gdzie rośliny rosną dużo szybciej. 
 
-<img src="dzungla.jpg"/>
 
 Nasze zwierzęta, które są roślinożercami, będą przemierzały ten świat w poszukiwaniu pożywienia. Każde zwierzę ma
 określoną energię, która zmniejsza się co dnia. Znalezienie i zjedzenie rośliny zwiększa poziom energii o pewną wartość.
@@ -32,8 +30,6 @@ naszym świecie pojawią się dwie nowe rośliny – jedna w każdej ze stref.
 ## Anatomia zwierzęcia
 
 
-<img src="zwierzak2.jpg"/>
-
 Musimy śledzić kilka cech każdego zwierzęcia. Po pierwsze, zarówno w przypadku rośliny jak i tych, którzy je zjadają,
 musimy znać koordynaty `x` i `y`. Wskazują nam one, gdzie dane zwierzę lub roślina jest na mapie.  Musimy także wiedzieć,
 ile energii ma dane zwierzę. To Darwinowska gra o przetrwanie, więc jeśli zwierzątko nie zdoła zdobyć odpowiedniej ilości
@@ -42,7 +38,6 @@ koniecznie znaleźć więcej jedzenia, zanim zapas energii się wyczerpie.  Musi
 jest zwierzę. Jest to ważne, ponieważ będzie ono przechodzić na sąsiedni kwadracik na mapie świata każdego dnia. Jest
 osiem różnych możliwych obrotów.
 
-<img src="kierunki.jpg"/>
 
 Obrót `0` oznacza, że zwierzę nie zmienia swojej orientacji, obrót `1` oznacza, że zwierzę obraca się o 45°, `2`, o 90°,
 itd. Przykładowo, jeśli zwierzę było skierowane na północ i obrót wynosi `1`, to zwierzę skierowane jest na
